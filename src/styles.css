@@ -123,8 +123,18 @@
 }
 
 @keyframes star-drift {
-  from { background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 260px 120px, 180px 320px; }
-  to   { background-position: 520px 520px, 760px 720px, 760px 900px, 780px 520px, 760px 740px, 680px 760px, 980px 820px, 680px 820px; }
+  from { background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to   { background-position: 520px 520px, 760px 720px, 760px 900px, 780px 520px, 760px 740px, 680px 760px, 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes yantra-breathe {
+  0%, 100% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 1; transform: scale(1.02) rotate(0.4deg); }
+}
+
+@keyframes fog-shift {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(8deg); }
 }
 
 
