@@ -44,6 +44,68 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    position: relative;
+    background-image:
+      /* soft ambient light pools */
+      radial-gradient(1200px 700px at 12% -10%, rgba(212, 175, 55, 0.10), transparent 60%),
+      radial-gradient(900px 600px at 105% 8%, rgba(109, 31, 45, 0.28), transparent 65%),
+      radial-gradient(1000px 800px at 50% 120%, rgba(212, 175, 55, 0.06), transparent 60%),
+      /* fine gold vertical rule grid — manuscript columns */
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 119px,
+        rgba(212, 175, 55, 0.045) 119px 120px
+      ),
+      /* faint horizontal ruling — palm-leaf lines */
+      repeating-linear-gradient(
+        0deg,
+        transparent 0 39px,
+        rgba(247, 244, 234, 0.018) 39px 40px
+      );
+    background-attachment: fixed;
+  }
+
+  /* Constellation dot field + gold-fleck paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 17% 22%, rgba(212, 175, 55, 0.55) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 63% 41%, rgba(247, 244, 234, 0.35) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 82% 71%, rgba(212, 175, 55, 0.4) 0 1.2px, transparent 1.8px),
+      radial-gradient(circle at 34% 84%, rgba(247, 244, 234, 0.25) 0 0.8px, transparent 1.3px),
+      radial-gradient(circle at 8% 58%, rgba(212, 175, 55, 0.3) 0 0.9px, transparent 1.4px),
+      radial-gradient(circle at 92% 18%, rgba(247, 244, 234, 0.3) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 48% 12%, rgba(212, 175, 55, 0.35) 0 0.9px, transparent 1.4px),
+      radial-gradient(circle at 27% 47%, rgba(247, 244, 234, 0.2) 0 0.7px, transparent 1.2px);
+    background-size: 520px 520px, 640px 640px, 700px 700px, 480px 480px, 560px 560px, 600px 600px, 720px 720px, 500px 500px;
+    background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 260px 120px, 180px 320px;
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    animation: star-drift 240s linear infinite;
+  }
+
+  /* Vignette + subtle noise for depth */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(5, 15, 34, 0.75) 100%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.83  0 0 0 0 0.69  0 0 0 0 0.22  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 100% 100%, 240px 240px;
+    mix-blend-mode: overlay;
+  }
+
+  /* Keep app content above the ambient layers */
+  #root, main, header, footer, section {
+    position: relative;
+    z-index: 1;
   }
 
   ::selection {
@@ -51,6 +113,12 @@
     color: #F7F4EA;
   }
 }
+
+@keyframes star-drift {
+  from { background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 260px 120px, 180px 320px; }
+  to   { background-position: 520px 520px, 760px 720px, 760px 900px, 780px 520px, 760px 740px, 680px 760px, 980px 820px, 680px 820px; }
+}
+
 
 /* ---------- Custom utilities ---------- */
 
