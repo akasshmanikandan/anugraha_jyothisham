@@ -45,67 +45,78 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     position: relative;
+    /* Static gradient painted once — no background-attachment: fixed (kills mobile scroll perf).
+       Full-viewport ambience lives on ::before/::after which are position:fixed. */
     background-image:
-      /* deep nebula plumes — furthest plane */
-      radial-gradient(1400px 900px at 8% -12%, rgba(212, 175, 55, 0.14), transparent 55%),
-      radial-gradient(1100px 800px at 108% 4%, rgba(109, 31, 45, 0.38), transparent 60%),
-      radial-gradient(900px 700px at -6% 55%, rgba(72, 24, 90, 0.22), transparent 60%),
-      radial-gradient(1200px 900px at 110% 70%, rgba(20, 60, 110, 0.32), transparent 60%),
-      radial-gradient(1000px 800px at 50% 120%, rgba(212, 175, 55, 0.08), transparent 60%),
-      /* base gradient — dome of night */
       radial-gradient(160% 120% at 50% -10%, #0B2247 0%, #081A34 32%, #050F22 62%, #02070F 100%);
-    background-attachment: fixed;
-    background-size: 100% 100%;
   }
 
-  /* Yantra watermark + manuscript ruling — mid plane */
+  /* Yantra watermark + engraved manuscript tile — mid plane (static).
+     Composited on its own layer so scroll doesn't repaint the tile SVGs. */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
+    /* Promote to its own compositor layer; contain paints for scroll perf */
+    transform: translateZ(0);
+    will-change: opacity;
+    contain: strict;
     background-image:
-      /* central yantra watermark (sri-yantra-inspired) */
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.55'><circle cx='400' cy='400' r='360'/><circle cx='400' cy='400' r='300'/><circle cx='400' cy='400' r='240'/><circle cx='400' cy='400' r='180'/><polygon points='400,120 680,560 120,560'/><polygon points='400,680 120,240 680,240'/><polygon points='400,200 620,520 180,520'/><polygon points='400,600 180,280 620,280'/></svg>"),
-      /* engraved temple-manuscript tile — lotus rosettes, cusped arches, paisley dots */
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23D4AF37' stroke-width='0.5' stroke-linecap='round' stroke-linejoin='round'><g opacity='0.55'><path d='M0 100 Q50 70 100 100 T200 100'/><path d='M100 0 Q70 50 100 100 T100 200'/></g><g opacity='0.7' transform='translate(100 100)'><circle r='7'/><circle r='2.2' fill='%23D4AF37' stroke='none'/><path d='M0 -14 Q4 -7 0 0 Q-4 -7 0 -14'/><path d='M0 14 Q4 7 0 0 Q-4 7 0 14'/><path d='M-14 0 Q-7 4 0 0 Q-7 -4 -14 0'/><path d='M14 0 Q7 4 0 0 Q7 -4 14 0'/><g transform='rotate(45)'><path d='M0 -12 Q3 -6 0 0 Q-3 -6 0 -12'/><path d='M0 12 Q3 6 0 0 Q-3 6 0 12'/><path d='M-12 0 Q-6 3 0 0 Q-6 -3 -12 0'/><path d='M12 0 Q6 3 0 0 Q6 -3 12 0'/></g></g><g opacity='0.6'><circle cx='0' cy='0' r='4'/><circle cx='200' cy='0' r='4'/><circle cx='0' cy='200' r='4'/><circle cx='200' cy='200' r='4'/><circle cx='0' cy='0' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='200' cy='0' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='0' cy='200' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='200' cy='200' r='1.6' fill='%23D4AF37' stroke='none'/></g><g opacity='0.45'><path d='M50 44 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M138 44 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M50 144 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M138 144 q6 6 12 0 q-6 12 -12 0 Z'/></g><g opacity='0.3' stroke-dasharray='1 4'><line x1='0' y1='100' x2='72' y2='100'/><line x1='128' y1='100' x2='200' y2='100'/><line x1='100' y1='0' x2='100' y2='72'/><line x1='100' y1='128' x2='100' y2='200'/></g></svg>");
     background-repeat: no-repeat, repeat;
     background-position: center center, 0 0;
     background-size: min(120vmin, 1100px) min(120vmin, 1100px), 180px 180px;
-    animation: yantra-breathe 24s ease-in-out infinite;
+    /* Delay animation start so hero animations get an uncontested first paint */
+    animation: yantra-breathe 24s ease-in-out 2s infinite;
   }
 
-  /* Constellation + fog + vignette + grain — near plane */
+  /* Nebula plumes + stars + fog + vignette + grain — near plane */
   body::after {
     content: "";
     position: fixed;
-    inset: -5%;
+    inset: 0;
     pointer-events: none;
     z-index: 0;
+    transform: translateZ(0);
+    will-change: background-position;
+    contain: strict;
     background-image:
-      /* stars (parallax nearer) */
+      /* nebula plumes moved here so they compose on the fixed layer, not repaint on scroll */
+      radial-gradient(1400px 900px at 8% -12%, rgba(212, 175, 55, 0.14), transparent 55%),
+      radial-gradient(1100px 800px at 108% 4%, rgba(109, 31, 45, 0.38), transparent 60%),
+      radial-gradient(900px 700px at -6% 55%, rgba(72, 24, 90, 0.22), transparent 60%),
+      radial-gradient(1200px 900px at 110% 70%, rgba(20, 60, 110, 0.32), transparent 60%),
+      /* stars */
       radial-gradient(circle at 17% 22%, rgba(212, 175, 55, 0.6) 0 1px, transparent 1.5px),
       radial-gradient(circle at 63% 41%, rgba(247, 244, 234, 0.4) 0 1px, transparent 1.5px),
       radial-gradient(circle at 82% 71%, rgba(212, 175, 55, 0.45) 0 1.2px, transparent 1.8px),
       radial-gradient(circle at 34% 84%, rgba(247, 244, 234, 0.28) 0 0.8px, transparent 1.3px),
       radial-gradient(circle at 8% 58%, rgba(212, 175, 55, 0.32) 0 0.9px, transparent 1.4px),
       radial-gradient(circle at 92% 18%, rgba(247, 244, 234, 0.32) 0 1px, transparent 1.5px),
-      /* drifting incense fog */
+      /* incense fog */
       radial-gradient(60% 40% at 20% 30%, rgba(247, 244, 234, 0.05), transparent 70%),
       radial-gradient(50% 40% at 80% 60%, rgba(212, 175, 55, 0.05), transparent 70%),
-      radial-gradient(70% 50% at 50% 90%, rgba(109, 31, 45, 0.10), transparent 70%),
       /* heavy vignette */
       radial-gradient(130% 100% at 50% 45%, transparent 45%, rgba(2, 7, 15, 0.55) 80%, rgba(2, 7, 15, 0.9) 100%),
-      /* gold-fleck paper grain */
+      /* grain */
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.83  0 0 0 0 0.69  0 0 0 0 0.22  0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size:
+      100% 100%, 100% 100%, 100% 100%, 100% 100%,
       520px 520px, 640px 640px, 700px 700px, 480px 480px, 560px 560px, 600px 600px,
-      100% 100%, 100% 100%, 100% 100%,
+      100% 100%, 100% 100%,
       100% 100%,
       240px 240px;
-    background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 0 0, 0 0, 0 0, 0 0, 0 0;
-    animation: star-drift 240s linear infinite, fog-shift 60s ease-in-out infinite alternate;
+    background-position:
+      0 0, 0 0, 0 0, 0 0,
+      0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px,
+      0 0, 0 0,
+      0 0,
+      0 0;
+    /* Only the stars drift; fog hue-rotate removed (forces full-layer repaint every frame). */
+    animation: star-drift 240s linear 2s infinite;
   }
 
   /* Keep app content above the ambient layers */
@@ -121,19 +132,59 @@
 }
 
 @keyframes star-drift {
-  from { background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 0 0, 0 0, 0 0, 0 0, 0 0; }
-  to   { background-position: 520px 520px, 760px 720px, 760px 900px, 780px 520px, 760px 740px, 680px 760px, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  from {
+    background-position:
+      0 0, 0 0, 0 0, 0 0,
+      0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px,
+      0 0, 0 0,
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      0 0, 0 0, 0 0, 0 0,
+      520px 520px, 760px 720px, 760px 900px, 780px 520px, 760px 740px, 680px 760px,
+      0 0, 0 0,
+      0 0,
+      0 0;
+  }
 }
 
 @keyframes yantra-breathe {
-  0%, 100% { opacity: 0.9; transform: scale(1) rotate(0deg); }
-  50%      { opacity: 1; transform: scale(1.02) rotate(0.4deg); }
+  0%, 100% { opacity: 0.9; }
+  50%      { opacity: 1; }
 }
 
-@keyframes fog-shift {
-  from { filter: hue-rotate(0deg); }
-  to   { filter: hue-rotate(8deg); }
+/* Low-end / small-screen budget: drop the two heaviest layers (SVG tile + grain),
+   keep base gradient, nebula, vignette. Removes ~180px SVG tiling repaint. */
+@media (max-width: 768px), (pointer: coarse) {
+  body::before {
+    /* Retain a soft yantra wash only; drop the repeating engraved tile */
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.4'><circle cx='400' cy='400' r='300'/><circle cx='400' cy='400' r='200'/><polygon points='400,140 660,560 140,560'/><polygon points='400,660 140,240 660,240'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: min(110vmin, 900px) min(110vmin, 900px);
+    animation: none;
+  }
+  body::after {
+    /* Drop grain SVG on mobile — biggest per-frame cost via mix effects */
+    background-image:
+      radial-gradient(1100px 700px at 8% -12%, rgba(212, 175, 55, 0.12), transparent 55%),
+      radial-gradient(900px 700px at 108% 4%, rgba(109, 31, 45, 0.32), transparent 60%),
+      radial-gradient(900px 700px at 110% 70%, rgba(20, 60, 110, 0.28), transparent 60%),
+      radial-gradient(130% 100% at 50% 45%, transparent 45%, rgba(2, 7, 15, 0.6) 80%, rgba(2, 7, 15, 0.92) 100%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+    animation: none;
+  }
 }
+
+/* Save-data users get the flat base only */
+@media (prefers-reduced-data: reduce) {
+  body::before, body::after { display: none; }
+}
+
 
 
 /* ---------- Custom utilities ---------- */
