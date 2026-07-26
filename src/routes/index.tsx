@@ -1265,7 +1265,7 @@ function TempleSilhouette() {
   // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
   return (
     <svg
-      viewBox="0 0 1200 200"
+      viewBox="0 -20 1200 220"
       className="w-full"
       preserveAspectRatio="none"
       aria-hidden="true"
