@@ -365,4 +365,5 @@
   .divider-diamond { transform: rotate(45deg) !important; opacity: 1 !important; }
   .wick-fill { width: 100% !important; }
   .ember { display: none !important; }
+  body::before { animation: none !important; }
 }
