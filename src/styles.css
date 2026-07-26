@@ -38,7 +38,7 @@
   }
 
   body {
-    background-color: #081A34;
+    background-color: #050F22;
     color: #F7F4EA;
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
@@ -46,26 +46,19 @@
     text-rendering: optimizeLegibility;
     position: relative;
     background-image:
-      /* soft ambient light pools */
-      radial-gradient(1200px 700px at 12% -10%, rgba(212, 175, 55, 0.10), transparent 60%),
-      radial-gradient(900px 600px at 105% 8%, rgba(109, 31, 45, 0.28), transparent 65%),
-      radial-gradient(1000px 800px at 50% 120%, rgba(212, 175, 55, 0.06), transparent 60%),
-      /* fine gold vertical rule grid — manuscript columns */
-      repeating-linear-gradient(
-        90deg,
-        transparent 0 119px,
-        rgba(212, 175, 55, 0.045) 119px 120px
-      ),
-      /* faint horizontal ruling — palm-leaf lines */
-      repeating-linear-gradient(
-        0deg,
-        transparent 0 39px,
-        rgba(247, 244, 234, 0.018) 39px 40px
-      );
+      /* deep nebula plumes — furthest plane */
+      radial-gradient(1400px 900px at 8% -12%, rgba(212, 175, 55, 0.14), transparent 55%),
+      radial-gradient(1100px 800px at 108% 4%, rgba(109, 31, 45, 0.38), transparent 60%),
+      radial-gradient(900px 700px at -6% 55%, rgba(72, 24, 90, 0.22), transparent 60%),
+      radial-gradient(1200px 900px at 110% 70%, rgba(20, 60, 110, 0.32), transparent 60%),
+      radial-gradient(1000px 800px at 50% 120%, rgba(212, 175, 55, 0.08), transparent 60%),
+      /* base gradient — dome of night */
+      radial-gradient(160% 120% at 50% -10%, #0B2247 0%, #081A34 32%, #050F22 62%, #02070F 100%);
     background-attachment: fixed;
+    background-size: 100% 100%;
   }
 
-  /* Constellation dot field + gold-fleck paper grain */
+  /* Yantra watermark + manuscript ruling — mid plane */
   body::before {
     content: "";
     position: fixed;
@@ -73,33 +66,48 @@
     pointer-events: none;
     z-index: 0;
     background-image:
-      radial-gradient(circle at 17% 22%, rgba(212, 175, 55, 0.55) 0 1px, transparent 1.5px),
-      radial-gradient(circle at 63% 41%, rgba(247, 244, 234, 0.35) 0 1px, transparent 1.5px),
-      radial-gradient(circle at 82% 71%, rgba(212, 175, 55, 0.4) 0 1.2px, transparent 1.8px),
-      radial-gradient(circle at 34% 84%, rgba(247, 244, 234, 0.25) 0 0.8px, transparent 1.3px),
-      radial-gradient(circle at 8% 58%, rgba(212, 175, 55, 0.3) 0 0.9px, transparent 1.4px),
-      radial-gradient(circle at 92% 18%, rgba(247, 244, 234, 0.3) 0 1px, transparent 1.5px),
-      radial-gradient(circle at 48% 12%, rgba(212, 175, 55, 0.35) 0 0.9px, transparent 1.4px),
-      radial-gradient(circle at 27% 47%, rgba(247, 244, 234, 0.2) 0 0.7px, transparent 1.2px);
-    background-size: 520px 520px, 640px 640px, 700px 700px, 480px 480px, 560px 560px, 600px 600px, 720px 720px, 500px 500px;
-    background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 260px 120px, 180px 320px;
-    opacity: 0.9;
-    mix-blend-mode: screen;
-    animation: star-drift 240s linear infinite;
+      /* central yantra watermark (sri-yantra-inspired) */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.55'><circle cx='400' cy='400' r='360'/><circle cx='400' cy='400' r='300'/><circle cx='400' cy='400' r='240'/><circle cx='400' cy='400' r='180'/><polygon points='400,120 680,560 120,560'/><polygon points='400,680 120,240 680,240'/><polygon points='400,200 620,520 180,520'/><polygon points='400,600 180,280 620,280'/><g transform='translate(400 400)'><g id='p'><path d='M0,-340 L20,-320 L-20,-320 Z'/></g></g></svg>"),
+      /* manuscript columns */
+      repeating-linear-gradient(90deg, transparent 0 119px, rgba(212, 175, 55, 0.05) 119px 120px),
+      /* palm-leaf ruling */
+      repeating-linear-gradient(0deg, transparent 0 39px, rgba(247, 244, 234, 0.02) 39px 40px);
+    background-repeat: no-repeat, repeat, repeat;
+    background-position: center center, 0 0, 0 0;
+    background-size: min(120vmin, 1100px) min(120vmin, 1100px), auto, auto;
+    animation: yantra-breathe 24s ease-in-out infinite;
   }
 
-  /* Vignette + subtle noise for depth */
+  /* Constellation + fog + vignette + grain — near plane */
   body::after {
     content: "";
     position: fixed;
-    inset: 0;
+    inset: -5%;
     pointer-events: none;
     z-index: 0;
-    background:
-      radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(5, 15, 34, 0.75) 100%),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.83  0 0 0 0 0.69  0 0 0 0 0.22  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 100% 100%, 240px 240px;
-    mix-blend-mode: overlay;
+    background-image:
+      /* stars (parallax nearer) */
+      radial-gradient(circle at 17% 22%, rgba(212, 175, 55, 0.6) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 63% 41%, rgba(247, 244, 234, 0.4) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 82% 71%, rgba(212, 175, 55, 0.45) 0 1.2px, transparent 1.8px),
+      radial-gradient(circle at 34% 84%, rgba(247, 244, 234, 0.28) 0 0.8px, transparent 1.3px),
+      radial-gradient(circle at 8% 58%, rgba(212, 175, 55, 0.32) 0 0.9px, transparent 1.4px),
+      radial-gradient(circle at 92% 18%, rgba(247, 244, 234, 0.32) 0 1px, transparent 1.5px),
+      /* drifting incense fog */
+      radial-gradient(60% 40% at 20% 30%, rgba(247, 244, 234, 0.05), transparent 70%),
+      radial-gradient(50% 40% at 80% 60%, rgba(212, 175, 55, 0.05), transparent 70%),
+      radial-gradient(70% 50% at 50% 90%, rgba(109, 31, 45, 0.10), transparent 70%),
+      /* heavy vignette */
+      radial-gradient(130% 100% at 50% 45%, transparent 45%, rgba(2, 7, 15, 0.55) 80%, rgba(2, 7, 15, 0.9) 100%),
+      /* gold-fleck paper grain */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.83  0 0 0 0 0.69  0 0 0 0 0.22  0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size:
+      520px 520px, 640px 640px, 700px 700px, 480px 480px, 560px 560px, 600px 600px,
+      100% 100%, 100% 100%, 100% 100%,
+      100% 100%,
+      240px 240px;
+    background-position: 0 0, 120px 80px, 60px 200px, 300px 40px, 200px 260px, 80px 160px, 0 0, 0 0, 0 0, 0 0, 0 0;
+    animation: star-drift 240s linear infinite, fog-shift 60s ease-in-out infinite alternate;
   }
 
   /* Keep app content above the ambient layers */
