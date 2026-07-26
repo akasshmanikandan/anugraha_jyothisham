@@ -67,14 +67,12 @@
     z-index: 0;
     background-image:
       /* central yantra watermark (sri-yantra-inspired) */
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.55'><circle cx='400' cy='400' r='360'/><circle cx='400' cy='400' r='300'/><circle cx='400' cy='400' r='240'/><circle cx='400' cy='400' r='180'/><polygon points='400,120 680,560 120,560'/><polygon points='400,680 120,240 680,240'/><polygon points='400,200 620,520 180,520'/><polygon points='400,600 180,280 620,280'/><g transform='translate(400 400)'><g id='p'><path d='M0,-340 L20,-320 L-20,-320 Z'/></g></g></svg>"),
-      /* manuscript columns */
-      repeating-linear-gradient(90deg, transparent 0 119px, rgba(212, 175, 55, 0.05) 119px 120px),
-      /* palm-leaf ruling */
-      repeating-linear-gradient(0deg, transparent 0 39px, rgba(247, 244, 234, 0.02) 39px 40px);
-    background-repeat: no-repeat, repeat, repeat;
-    background-position: center center, 0 0, 0 0;
-    background-size: min(120vmin, 1100px) min(120vmin, 1100px), auto, auto;
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.55'><circle cx='400' cy='400' r='360'/><circle cx='400' cy='400' r='300'/><circle cx='400' cy='400' r='240'/><circle cx='400' cy='400' r='180'/><polygon points='400,120 680,560 120,560'/><polygon points='400,680 120,240 680,240'/><polygon points='400,200 620,520 180,520'/><polygon points='400,600 180,280 620,280'/></svg>"),
+      /* engraved temple-manuscript tile — lotus rosettes, cusped arches, paisley dots */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23D4AF37' stroke-width='0.5' stroke-linecap='round' stroke-linejoin='round'><g opacity='0.55'><path d='M0 100 Q50 70 100 100 T200 100'/><path d='M100 0 Q70 50 100 100 T100 200'/></g><g opacity='0.7' transform='translate(100 100)'><circle r='7'/><circle r='2.2' fill='%23D4AF37' stroke='none'/><path d='M0 -14 Q4 -7 0 0 Q-4 -7 0 -14'/><path d='M0 14 Q4 7 0 0 Q-4 7 0 14'/><path d='M-14 0 Q-7 4 0 0 Q-7 -4 -14 0'/><path d='M14 0 Q7 4 0 0 Q7 -4 14 0'/><g transform='rotate(45)'><path d='M0 -12 Q3 -6 0 0 Q-3 -6 0 -12'/><path d='M0 12 Q3 6 0 0 Q-3 6 0 12'/><path d='M-12 0 Q-6 3 0 0 Q-6 -3 -12 0'/><path d='M12 0 Q6 3 0 0 Q6 -3 12 0'/></g></g><g opacity='0.6'><circle cx='0' cy='0' r='4'/><circle cx='200' cy='0' r='4'/><circle cx='0' cy='200' r='4'/><circle cx='200' cy='200' r='4'/><circle cx='0' cy='0' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='200' cy='0' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='0' cy='200' r='1.6' fill='%23D4AF37' stroke='none'/><circle cx='200' cy='200' r='1.6' fill='%23D4AF37' stroke='none'/></g><g opacity='0.45'><path d='M50 44 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M138 44 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M50 144 q6 6 12 0 q-6 12 -12 0 Z'/><path d='M138 144 q6 6 12 0 q-6 12 -12 0 Z'/></g><g opacity='0.3' stroke-dasharray='1 4'><line x1='0' y1='100' x2='72' y2='100'/><line x1='128' y1='100' x2='200' y2='100'/><line x1='100' y1='0' x2='100' y2='72'/><line x1='100' y1='128' x2='100' y2='200'/></g></svg>");
+    background-repeat: no-repeat, repeat;
+    background-position: center center, 0 0;
+    background-size: min(120vmin, 1100px) min(120vmin, 1100px), 180px 180px;
     animation: yantra-breathe 24s ease-in-out infinite;
   }
 
