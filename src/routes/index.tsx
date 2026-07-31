@@ -777,9 +777,11 @@ function LandingPage() {
           {SERVICES.map((s) => (
             <article
               key={s.title}
+              data-d3="card"
               className="service-card group relative overflow-hidden p-8 md:p-10"
               style={{ background: "#081A34" }}
             >
+
               <div className="mb-6">
                 <s.Icon />
               </div>
