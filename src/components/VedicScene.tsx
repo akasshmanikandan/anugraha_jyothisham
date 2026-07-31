@@ -17,7 +17,7 @@ export default function VedicScene() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 0, 10);
+    camera.position.set(0, 0, 12);
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -180,7 +180,7 @@ export default function VedicScene() {
       root.rotation.y = 0.55 * scrollP + pointerX * 0.35;
       root.position.z = -4.5 * scrollP;
       root.position.y = 0.8 * scrollP;
-      camera.position.z = 10 + scrollP * 1.5;
+      camera.position.z = 12 + scrollP * 1.5;
 
       renderer.render(scene, camera);
     };
