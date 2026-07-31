@@ -434,3 +434,54 @@
   .ember { display: none !important; }
   body::before { animation: none !important; }
 }
+
+/* ---------- Scroll-linked 3D depth ---------- */
+
+[data-d3] {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Whole blocks recede/approach as they cross the viewport */
+[data-d3="float"] {
+  transform: perspective(1400px)
+    translate3d(0, calc(var(--p, 0) * 26px), calc(var(--p, 0) * -70px))
+    rotateX(calc(var(--p, 0) * -5deg));
+}
+
+/* Media plates: stronger dolly + slight bank */
+[data-d3="deep"] {
+  transform: perspective(1500px)
+    translate3d(0, calc(var(--p, 0) * 34px), calc(var(--p, 0) * -140px))
+    rotateX(calc(var(--p, 0) * -7deg))
+    rotateY(calc(var(--p, 0) * 3deg));
+}
+
+/* Cards tilt like pages lifting off the manuscript */
+[data-d3="card"] {
+  transform: perspective(1100px)
+    rotateX(calc(var(--p, 0) * 8deg))
+    translate3d(0, calc(var(--p, 0) * 14px), calc(var(--p, 0) * -60px));
+}
+
+/* Foreground elements that come toward the reader */
+[data-d3="near"] {
+  transform: perspective(1200px)
+    translate3d(0, calc(var(--p, 0) * -18px), calc(var(--p, 0) * 60px));
+}
+
+/* Gentler on small screens / touch */
+@media (max-width: 768px), (pointer: coarse) {
+  [data-d3="float"] {
+    transform: perspective(1400px) translate3d(0, calc(var(--p, 0) * 12px), calc(var(--p, 0) * -30px));
+  }
+  [data-d3="deep"] {
+    transform: perspective(1500px) translate3d(0, calc(var(--p, 0) * 16px), calc(var(--p, 0) * -50px));
+  }
+  [data-d3="card"], [data-d3="near"] { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-d3] { transform: none !important; }
+}

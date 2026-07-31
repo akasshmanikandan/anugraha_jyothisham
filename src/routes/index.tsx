@@ -605,6 +605,41 @@ function LandingPage() {
     };
   }, []);
 
+  /* Scroll-linked 3D depth: sets --p (-1..1) on every [data-d3] element */
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      const nodes = document.querySelectorAll<HTMLElement>("[data-d3]");
+      nodes.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
+        const center = r.top + r.height / 2;
+        const p = Math.max(-1, Math.min(1, (center - vh / 2) / vh));
+        el.style.setProperty("--p", p.toFixed(4));
+      });
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   /* Timeline wick fill on scroll */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -723,7 +758,7 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto flex items-center justify-center">
+          <div data-d3="near" className="relative mx-auto flex items-center justify-center">
             <ZodiacWheel />
           </div>
         </div>
@@ -742,9 +777,11 @@ function LandingPage() {
           {SERVICES.map((s) => (
             <article
               key={s.title}
+              data-d3="card"
               className="service-card group relative overflow-hidden p-8 md:p-10"
               style={{ background: "#081A34" }}
             >
+
               <div className="mb-6">
                 <s.Icon />
               </div>
@@ -768,7 +805,7 @@ function LandingPage() {
       {/* About */}
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
-          <div className="relative">
+          <div data-d3="deep" className="relative">
             <div className="relative overflow-hidden" style={{ borderRadius: 16 }}>
               <img
                 src={astrologerImg}
@@ -978,9 +1015,15 @@ function LandingPage() {
           {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
             <figure
               key={i}
+              data-d3="deep"
               className="relative overflow-hidden"
-              style={{ borderRadius: 12, border: "1px solid rgba(212,175,55,0.2)" }}
+              style={{
+                borderRadius: 12,
+                border: "1px solid rgba(212,175,55,0.2)",
+                transitionDelay: `${i * 40}ms`,
+              }}
             >
+
               <img
                 src={g}
                 alt=""
@@ -1224,7 +1267,7 @@ function SectionHeading({
   quote: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <div data-d3="float" className="mx-auto max-w-3xl text-center">
       <div className="text-[10px] uppercase tracking-[0.36em]" style={{ color: "#D4AF37" }}>
         {eyebrow}
       </div>
