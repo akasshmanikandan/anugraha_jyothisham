@@ -789,7 +789,7 @@ function LandingPage() {
             </div>
           </div>
 
-          <div data-d3="near" className="relative mx-auto flex items-center justify-center">
+          <div data-d3="near" className="relative mx-auto flex w-full items-center justify-center">
             {fx3d ? (
               <ClientOnly fallback={<ZodiacWheel />}>
                 <Suspense fallback={<ZodiacWheel />}>
