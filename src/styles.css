@@ -493,3 +493,6 @@
 @media (prefers-reduced-motion: reduce) {
   [data-d3] { transform: none !important; }
 }
+
+/* Manual 3D toggle (button in the corner) */
+html[data-fx="off"] [data-d3] { transform: none !important; opacity: 1 !important; }
