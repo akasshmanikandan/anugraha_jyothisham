@@ -805,7 +805,7 @@ function LandingPage() {
       {/* About */}
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
-          <div className="relative">
+          <div data-d3="deep" className="relative">
             <div className="relative overflow-hidden" style={{ borderRadius: 16 }}>
               <img
                 src={astrologerImg}
