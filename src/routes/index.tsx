@@ -605,6 +605,41 @@ function LandingPage() {
     };
   }, []);
 
+  /* Scroll-linked 3D depth: sets --p (-1..1) on every [data-d3] element */
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      const nodes = document.querySelectorAll<HTMLElement>("[data-d3]");
+      nodes.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
+        const center = r.top + r.height / 2;
+        const p = Math.max(-1, Math.min(1, (center - vh / 2) / vh));
+        el.style.setProperty("--p", p.toFixed(4));
+      });
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   /* Timeline wick fill on scroll */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
