@@ -758,7 +758,7 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto flex items-center justify-center">
+          <div data-d3="near" className="relative mx-auto flex items-center justify-center">
             <ZodiacWheel />
           </div>
         </div>
