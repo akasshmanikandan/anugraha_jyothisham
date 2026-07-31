@@ -1013,9 +1013,15 @@ function LandingPage() {
           {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
             <figure
               key={i}
+              data-d3="deep"
               className="relative overflow-hidden"
-              style={{ borderRadius: 12, border: "1px solid rgba(212,175,55,0.2)" }}
+              style={{
+                borderRadius: 12,
+                border: "1px solid rgba(212,175,55,0.2)",
+                transitionDelay: `${i * 40}ms`,
+              }}
             >
+
               <img
                 src={g}
                 alt=""
