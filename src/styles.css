@@ -448,7 +448,7 @@
   transform: perspective(1000px)
     translate3d(0, calc(var(--p, 0) * 40px), calc(var(--p, 0) * -220px))
     rotateX(calc(var(--p, 0) * -12deg));
-  opacity: calc(1 - abs(var(--p, 0)) * 0.35);
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.35);
 }
 
 /* Media plates: stronger dolly + slight bank */
@@ -457,7 +457,7 @@
     translate3d(0, calc(var(--p, 0) * 60px), calc(var(--p, 0) * -340px))
     rotateX(calc(var(--p, 0) * -16deg))
     rotateY(calc(var(--p, 0) * 8deg));
-  opacity: calc(1 - abs(var(--p, 0)) * 0.45);
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.45);
 }
 
 /* Cards tilt like pages lifting off the manuscript */
@@ -465,7 +465,7 @@
   transform: perspective(800px)
     rotateX(calc(var(--p, 0) * 18deg))
     translate3d(0, calc(var(--p, 0) * 24px), calc(var(--p, 0) * -160px));
-  opacity: calc(1 - abs(var(--p, 0)) * 0.4);
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.4);
 }
 
 /* Foreground elements that come toward the reader */
