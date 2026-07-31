@@ -139,7 +139,7 @@ export default function VedicScene() {
       targetY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
     const resize = () => {
-      const w = mount.clientWidth;
+      const w = mount.clientWidth || mount.parentElement?.clientWidth || 0;
       if (!w) return;
       renderer.setSize(w, w, false);
       camera.aspect = 1;
@@ -150,6 +150,8 @@ export default function VedicScene() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", resize);
+    const ro = new ResizeObserver(resize);
+    ro.observe(mount);
     window.addEventListener("pointermove", onPointer, { passive: true });
 
     let raf = 0;
@@ -187,6 +189,7 @@ export default function VedicScene() {
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
@@ -206,8 +209,8 @@ export default function VedicScene() {
     <div
       ref={mountRef}
       aria-hidden
-      className="aspect-square w-full max-w-[560px]"
-      style={{ contain: "layout paint" }}
+      className="relative w-full max-w-[560px]"
+      style={{ aspectRatio: "1 / 1", minWidth: "260px" }}
     />
   );
 }
