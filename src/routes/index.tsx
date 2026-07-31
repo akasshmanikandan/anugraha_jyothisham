@@ -540,6 +540,13 @@ function LandingPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [fx3d, setFx3d] = useState(true);
+
+  /* Reflect the 3D toggle on <html> so CSS transforms can be switched off */
+  useEffect(() => {
+    document.documentElement.dataset.fx = fx3d ? "on" : "off";
+  }, [fx3d]);
+
 
   /* Cursor embers — desktop hero only */
   useEffect(() => {
