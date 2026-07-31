@@ -445,42 +445,50 @@
 
 /* Whole blocks recede/approach as they cross the viewport */
 [data-d3="float"] {
-  transform: perspective(1400px)
-    translate3d(0, calc(var(--p, 0) * 26px), calc(var(--p, 0) * -70px))
-    rotateX(calc(var(--p, 0) * -5deg));
+  transform: perspective(1000px)
+    translate3d(0, calc(var(--p, 0) * 40px), calc(var(--p, 0) * -220px))
+    rotateX(calc(var(--p, 0) * -12deg));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.35);
 }
 
 /* Media plates: stronger dolly + slight bank */
 [data-d3="deep"] {
-  transform: perspective(1500px)
-    translate3d(0, calc(var(--p, 0) * 34px), calc(var(--p, 0) * -140px))
-    rotateX(calc(var(--p, 0) * -7deg))
-    rotateY(calc(var(--p, 0) * 3deg));
+  transform: perspective(900px)
+    translate3d(0, calc(var(--p, 0) * 60px), calc(var(--p, 0) * -340px))
+    rotateX(calc(var(--p, 0) * -16deg))
+    rotateY(calc(var(--p, 0) * 8deg));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.45);
 }
 
 /* Cards tilt like pages lifting off the manuscript */
 [data-d3="card"] {
-  transform: perspective(1100px)
-    rotateX(calc(var(--p, 0) * 8deg))
-    translate3d(0, calc(var(--p, 0) * 14px), calc(var(--p, 0) * -60px));
+  transform: perspective(800px)
+    rotateX(calc(var(--p, 0) * 18deg))
+    translate3d(0, calc(var(--p, 0) * 24px), calc(var(--p, 0) * -160px));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.4);
 }
 
 /* Foreground elements that come toward the reader */
 [data-d3="near"] {
-  transform: perspective(1200px)
-    translate3d(0, calc(var(--p, 0) * -18px), calc(var(--p, 0) * 60px));
+  transform: perspective(900px)
+    translate3d(0, calc(var(--p, 0) * -30px), calc(var(--p, 0) * 130px))
+    rotateX(calc(var(--p, 0) * 6deg));
 }
 
 /* Gentler on small screens / touch */
-@media (max-width: 768px), (pointer: coarse) {
+@media (max-width: 640px) {
   [data-d3="float"] {
-    transform: perspective(1400px) translate3d(0, calc(var(--p, 0) * 12px), calc(var(--p, 0) * -30px));
+    transform: perspective(1000px) translate3d(0, calc(var(--p, 0) * 20px), calc(var(--p, 0) * -110px)) rotateX(calc(var(--p, 0) * -7deg));
   }
   [data-d3="deep"] {
-    transform: perspective(1500px) translate3d(0, calc(var(--p, 0) * 16px), calc(var(--p, 0) * -50px));
+    transform: perspective(1000px) translate3d(0, calc(var(--p, 0) * 26px), calc(var(--p, 0) * -150px)) rotateX(calc(var(--p, 0) * -8deg));
   }
-  [data-d3="card"], [data-d3="near"] { transform: none; }
+  [data-d3="card"] {
+    transform: perspective(900px) rotateX(calc(var(--p, 0) * 9deg)) translate3d(0, calc(var(--p, 0) * 12px), calc(var(--p, 0) * -80px));
+  }
+  [data-d3="near"] { transform: none; }
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   [data-d3] { transform: none !important; }
