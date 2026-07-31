@@ -1259,7 +1259,7 @@ function SectionHeading({
   quote: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <div data-d3="float" className="mx-auto max-w-3xl text-center">
       <div className="text-[10px] uppercase tracking-[0.36em]" style={{ color: "#D4AF37" }}>
         {eyebrow}
       </div>
