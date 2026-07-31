@@ -90,10 +90,11 @@ function ZodiacWheel() {
           {/* 12 divisions */}
           {Array.from({ length: 12 }).map((_, i) => {
             const a = (i * 30 * Math.PI) / 180;
-            const x1 = Math.cos(a) * 205;
-            const y1 = Math.sin(a) * 205;
-            const x2 = Math.cos(a) * 275;
-            const y2 = Math.sin(a) * 275;
+            const x1 = +(Math.cos(a) * 205).toFixed(3);
+            const y1 = +(Math.sin(a) * 205).toFixed(3);
+            const x2 = +(Math.cos(a) * 275).toFixed(3);
+            const y2 = +(Math.sin(a) * 275).toFixed(3);
+
             return (
               <line
                 key={i}
