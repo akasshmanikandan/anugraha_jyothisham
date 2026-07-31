@@ -1,5 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
+
+const VedicScene = lazy(() => import("@/components/VedicScene"));
+
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -87,10 +90,11 @@ function ZodiacWheel() {
           {/* 12 divisions */}
           {Array.from({ length: 12 }).map((_, i) => {
             const a = (i * 30 * Math.PI) / 180;
-            const x1 = Math.cos(a) * 205;
-            const y1 = Math.sin(a) * 205;
-            const x2 = Math.cos(a) * 275;
-            const y2 = Math.sin(a) * 275;
+            const x1 = +(Math.cos(a) * 205).toFixed(3);
+            const y1 = +(Math.sin(a) * 205).toFixed(3);
+            const x2 = +(Math.cos(a) * 275).toFixed(3);
+            const y2 = +(Math.sin(a) * 275).toFixed(3);
+
             return (
               <line
                 key={i}
@@ -537,6 +541,13 @@ function LandingPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [fx3d, setFx3d] = useState(true);
+
+  /* Reflect the 3D toggle on <html> so CSS transforms can be switched off */
+  useEffect(() => {
+    document.documentElement.dataset.fx = fx3d ? "on" : "off";
+  }, [fx3d]);
+
 
   /* Cursor embers — desktop hero only */
   useEffect(() => {
@@ -669,6 +680,26 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
+      {/* 3D effects toggle */}
+      <button
+        type="button"
+        onClick={() => setFx3d((v) => !v)}
+        aria-pressed={fx3d}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 border px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] backdrop-blur transition-colors"
+        style={{
+          borderColor: "rgba(212,175,55,0.4)",
+          background: "rgba(5,15,34,0.72)",
+          color: fx3d ? "#D4AF37" : "#C9C3B0",
+        }}
+      >
+        <span
+          className="inline-block h-1.5 w-1.5 rounded-full transition-colors"
+          style={{ background: fx3d ? "#D4AF37" : "rgba(201,195,176,0.4)" }}
+        />
+        3D {fx3d ? "On" : "Off"}
+      </button>
+
+
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-40">
         <div
@@ -758,9 +789,18 @@ function LandingPage() {
             </div>
           </div>
 
-          <div data-d3="near" className="relative mx-auto flex items-center justify-center">
-            <ZodiacWheel />
+          <div data-d3="near" className="relative mx-auto flex w-full items-center justify-center">
+            {fx3d ? (
+              <ClientOnly fallback={<ZodiacWheel />}>
+                <Suspense fallback={<ZodiacWheel />}>
+                  <VedicScene />
+                </Suspense>
+              </ClientOnly>
+            ) : (
+              <ZodiacWheel />
+            )}
           </div>
+
         </div>
       </section>
 
