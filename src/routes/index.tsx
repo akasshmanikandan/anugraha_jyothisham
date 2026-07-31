@@ -679,6 +679,26 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
+      {/* 3D effects toggle */}
+      <button
+        type="button"
+        onClick={() => setFx3d((v) => !v)}
+        aria-pressed={fx3d}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 border px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] backdrop-blur transition-colors"
+        style={{
+          borderColor: "rgba(212,175,55,0.4)",
+          background: "rgba(5,15,34,0.72)",
+          color: fx3d ? "#D4AF37" : "#C9C3B0",
+        }}
+      >
+        <span
+          className="inline-block h-1.5 w-1.5 rounded-full transition-colors"
+          style={{ background: fx3d ? "#D4AF37" : "rgba(201,195,176,0.4)" }}
+        />
+        3D {fx3d ? "On" : "Off"}
+      </button>
+
+
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-40">
         <div
