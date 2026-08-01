@@ -1234,7 +1234,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTISHAM
+                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
               </div>
               <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
                 A private consultancy in traditional Vedic astrology and spiritual practice.
