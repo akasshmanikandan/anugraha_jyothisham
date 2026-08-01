@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 /**
- * Real WebGL (three.js) zodiac assembly: concentric gold rings, spoke wheel,
- * a rotating Sri-Yantra style double triangle and a depth starfield.
- * Scroll drives camera dolly + tilt so the object reads as genuinely 3D.
+ * Sri Chakra (Sri Yantra) rendered in real WebGL:
+ * bhupura square with four gates, 16- and 8-petal lotus rings, the triple
+ * girdle circles, the nine interlocking trikonas and the central bindu.
+ * Scroll dollies + banks the yantra; pointer parallaxes it.
  */
 export default function VedicScene() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -34,87 +35,154 @@ export default function VedicScene() {
 
     const GOLD = 0xd4af37;
     const IVORY = 0xf7f4ea;
-    const MAROON = 0x8d2b3c;
+    const MAROON = 0x9c3324;
 
     const root = new THREE.Group();
     scene.add(root);
 
-    const line = (geo: THREE.BufferGeometry, color: number, opacity: number) =>
-      new THREE.LineSegments(
-        geo,
+    const seg = (pts: number[], color: number, opacity: number, z = 0) => {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
+      const l = new THREE.LineSegments(
+        g,
         new THREE.LineBasicMaterial({ color, transparent: true, opacity })
       );
-
-    // --- Concentric rings on slightly different planes (depth) ---
-    const ringGroup = new THREE.Group();
-    const radii = [3.4, 3.1, 2.45, 1.75, 1.05];
-    radii.forEach((r, i) => {
-      const pts: number[] = [];
-      const seg = 160;
-      for (let s = 0; s < seg; s++) {
-        const a1 = (s / seg) * Math.PI * 2;
-        const a2 = ((s + 1) / seg) * Math.PI * 2;
-        pts.push(Math.cos(a1) * r, Math.sin(a1) * r, 0, Math.cos(a2) * r, Math.sin(a2) * r, 0);
-      }
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-      const ring = line(geo, i % 2 === 0 ? GOLD : IVORY, i % 2 === 0 ? 0.85 : 0.35);
-      ring.position.z = i * -0.28;
-      ringGroup.add(ring);
-    });
-    root.add(ringGroup);
-
-    // --- 12 house spokes + zodiac markers ---
-    const spokes: number[] = [];
-    const marks: number[] = [];
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      spokes.push(Math.cos(a) * 1.05, Math.sin(a) * 1.05, 0, Math.cos(a) * 3.1, Math.sin(a) * 3.1, 0);
-      const am = a + Math.PI / 12;
-      marks.push(Math.cos(am) * 3.1, Math.sin(am) * 3.1, 0, Math.cos(am) * 3.4, Math.sin(am) * 3.4, 0);
-    }
-    const spokeGeo = new THREE.BufferGeometry();
-    spokeGeo.setAttribute("position", new THREE.Float32BufferAttribute(spokes, 3));
-    root.add(line(spokeGeo, GOLD, 0.45));
-    const markGeo = new THREE.BufferGeometry();
-    markGeo.setAttribute("position", new THREE.Float32BufferAttribute(marks, 3));
-    root.add(line(markGeo, IVORY, 0.28));
-
-    // --- Counter-rotating yantra triangles, lifted forward in Z ---
-    const yantra = new THREE.Group();
-    const tri = (r: number, rot: number, color: number, opacity: number, z: number) => {
-      const p: number[] = [];
-      for (let i = 0; i < 3; i++) {
-        const a1 = rot + (i / 3) * Math.PI * 2;
-        const a2 = rot + ((i + 1) / 3) * Math.PI * 2;
-        p.push(Math.cos(a1) * r, Math.sin(a1) * r, 0, Math.cos(a2) * r, Math.sin(a2) * r, 0);
-      }
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.Float32BufferAttribute(p, 3));
-      const l = line(g, color, opacity);
       l.position.z = z;
       return l;
     };
-    yantra.add(tri(2.0, Math.PI / 2, GOLD, 0.7, 0.5));
-    yantra.add(tri(2.0, -Math.PI / 2, MAROON, 0.85, 0.75));
-    yantra.add(tri(1.25, Math.PI / 2, IVORY, 0.4, 1.0));
-    root.add(yantra);
 
-    // --- Bindu ---
+    const R = 2.0; // radius of the inner girdle circle
+
+    /* ---------- Nine interlocking trikonas ---------- */
+    // Base chord y-levels / apex y-levels (normalised, apex on opposite side)
+    const up = [
+      [-0.72, 1.0],
+      [-0.5, 0.68],
+      [-0.28, 0.44],
+      [-0.05, 0.2],
+    ];
+    const down = [
+      [0.86, -1.0],
+      [0.6, -0.7],
+      [0.36, -0.46],
+      [0.12, -0.22],
+      [-0.12, 0.02],
+    ];
+    const half = (y: number) => Math.sqrt(Math.max(0, 1 - y * y)) * 0.97 * R;
+    const triPts = (by: number, ay: number) => {
+      const b = by * R;
+      const a = ay * R;
+      const w = half(by);
+      return [-w, b, 0, w, b, 0, w, b, 0, 0, a, 0, 0, a, 0, -w, b, 0];
+    };
+
+    const trikonas = new THREE.Group();
+    up.forEach(([by, ay], i) => trikonas.add(seg(triPts(by, ay), GOLD, 0.9, 0.1 + i * 0.05)));
+    down.forEach(([by, ay], i) => trikonas.add(seg(triPts(by, ay), MAROON, 0.85, 0.12 + i * 0.05)));
+    root.add(trikonas);
+
+    /* ---------- Bindu ---------- */
     const bindu = new THREE.Mesh(
-      new THREE.SphereGeometry(0.09, 20, 20),
+      new THREE.SphereGeometry(0.075, 20, 20),
       new THREE.MeshBasicMaterial({ color: GOLD })
     );
-    bindu.position.z = 1.1;
+    bindu.position.set(0, 0, 0.45);
     root.add(bindu);
 
-    // --- Depth starfield ---
+    /* ---------- Girdle circles ---------- */
+    const circle = (r: number, color: number, opacity: number, z: number) => {
+      const pts: number[] = [];
+      const n = 180;
+      for (let s = 0; s < n; s++) {
+        const a1 = (s / n) * Math.PI * 2;
+        const a2 = ((s + 1) / n) * Math.PI * 2;
+        pts.push(Math.cos(a1) * r, Math.sin(a1) * r, 0, Math.cos(a2) * r, Math.sin(a2) * r, 0);
+      }
+      return seg(pts, color, opacity, z);
+    };
+    root.add(circle(R * 1.02, GOLD, 0.85, 0));
+    root.add(circle(R * 1.32, GOLD, 0.7, -0.1));
+    root.add(circle(R * 1.62, GOLD, 0.55, -0.2));
+    root.add(circle(R * 1.68, IVORY, 0.25, -0.22));
+    root.add(circle(R * 1.74, GOLD, 0.7, -0.24));
+
+    /* ---------- Lotus petal rings ---------- */
+    const lotus = (count: number, rIn: number, rOut: number, color: number, opacity: number, z: number) => {
+      const pts: number[] = [];
+      const step = (Math.PI * 2) / count;
+      for (let i = 0; i < count; i++) {
+        const c = i * step;
+        // petal = two arcs bulging out from the inner ring, meeting at tips
+        for (const dir of [-1, 1]) {
+          const steps = 14;
+          let px = 0;
+          let py = 0;
+          for (let s = 0; s <= steps; s++) {
+            const t = s / steps;
+            // angle sweeps across the petal, radius bulges mid-way
+            const a = c - step / 2 + t * step;
+            const bulge = Math.sin(t * Math.PI);
+            const off = dir * bulge * step * 0.28;
+            const r = rIn + (rOut - rIn) * bulge;
+            const x = Math.cos(a + off) * r;
+            const y = Math.sin(a + off) * r;
+            if (s > 0) pts.push(px, py, 0, x, y, 0);
+            px = x;
+            py = y;
+          }
+        }
+      }
+      return seg(pts, color, opacity, z);
+    };
+    const lotus8 = lotus(8, R * 1.03, R * 1.3, GOLD, 0.8, -0.05);
+    const lotus16 = lotus(16, R * 1.33, R * 1.6, GOLD, 0.65, -0.15);
+    root.add(lotus8, lotus16);
+
+    /* ---------- Bhupura: three nested squares with four gates ---------- */
+    const bhupura = new THREE.Group();
+    const gatedSquare = (h: number, gate: number, depth: number, color: number, opacity: number, z: number) => {
+      const pts: number[] = [];
+      const line = (x1: number, y1: number, x2: number, y2: number) =>
+        pts.push(x1, y1, 0, x2, y2, 0);
+      // one side with a T-gate, rotated four times
+      const side = (rot: number) => {
+        const rp = (x: number, y: number): [number, number] => [
+          x * Math.cos(rot) - y * Math.sin(rot),
+          x * Math.sin(rot) + y * Math.cos(rot),
+        ];
+        const P: Array<[number, number]> = [
+          [-h, h],
+          [-gate, h],
+          [-gate, h + depth],
+          [-gate * 0.45, h + depth],
+          [-gate * 0.45, h + depth * 1.9],
+          [gate * 0.45, h + depth * 1.9],
+          [gate * 0.45, h + depth],
+          [gate, h + depth],
+          [gate, h],
+          [h, h],
+        ];
+        for (let i = 0; i < P.length - 1; i++) {
+          const a = rp(...P[i]);
+          const b = rp(...P[i + 1]);
+          line(a[0], a[1], b[0], b[1]);
+        }
+      };
+      for (let i = 0; i < 4; i++) side((i * Math.PI) / 2);
+      return seg(pts, color, opacity, z);
+    };
+    bhupura.add(gatedSquare(R * 1.86, R * 0.34, R * 0.14, GOLD, 0.75, -0.3));
+    bhupura.add(gatedSquare(R * 2.02, R * 0.34, R * 0.14, MAROON, 0.7, -0.36));
+    bhupura.add(gatedSquare(R * 2.18, R * 0.34, R * 0.14, GOLD, 0.55, -0.42));
+    root.add(bhupura);
+
+    /* ---------- Depth starfield ---------- */
     const starCount = 320;
     const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
-      starPos[i * 3] = (Math.random() - 0.5) * 22;
-      starPos[i * 3 + 1] = (Math.random() - 0.5) * 16;
-      starPos[i * 3 + 2] = -Math.random() * 18 - 1;
+      starPos[i * 3] = (Math.random() - 0.5) * 24;
+      starPos[i * 3 + 1] = (Math.random() - 0.5) * 18;
+      starPos[i * 3 + 2] = -Math.random() * 18 - 2;
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
@@ -124,7 +192,7 @@ export default function VedicScene() {
     );
     scene.add(stars);
 
-    // --- Interaction state ---
+    /* ---------- Interaction ---------- */
     let scrollP = 0;
     let pointerX = 0;
     let pointerY = 0;
@@ -169,15 +237,17 @@ export default function VedicScene() {
       pointerY += (targetY - pointerY) * 0.05;
 
       if (!reduced) {
-        ringGroup.rotation.z = t * 0.06;
-        yantra.rotation.z = -t * 0.11;
-        bindu.scale.setScalar(1 + Math.sin(t * 1.6) * 0.18);
+        // the yantra itself stays upright (it is a fixed sacred diagram);
+        // only the lotus rings and outer frame breathe / turn slowly
+        lotus8.rotation.z = t * 0.05;
+        lotus16.rotation.z = -t * 0.035;
+        bhupura.rotation.z = Math.sin(t * 0.18) * 0.03;
+        bindu.scale.setScalar(1 + Math.sin(t * 1.6) * 0.2);
         stars.rotation.z = t * 0.008;
       }
 
-      // Scroll dolly + tilt: the wheel turns edge-on and recedes as you scroll
       root.rotation.x = -0.35 * scrollP + pointerY * 0.25;
-      root.rotation.y = 0.55 * scrollP + pointerX * 0.35;
+      root.rotation.y = 0.5 * scrollP + pointerX * 0.32;
       root.position.z = -4.5 * scrollP;
       root.position.y = 0.8 * scrollP;
       camera.position.z = 12 + scrollP * 1.5;
