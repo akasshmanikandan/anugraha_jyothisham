@@ -713,7 +713,8 @@ function LandingPage() {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
             <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTISHAM
+              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
+
             </a>
             <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
               <a href="#services" className="hover:text-ivory transition-colors">Services</a>
