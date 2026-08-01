@@ -38,6 +38,7 @@ export default function VedicScene() {
     const MAROON = 0x9c3324;
 
     const root = new THREE.Group();
+    root.scale.setScalar(0.72);
     scene.add(root);
 
     const seg = (pts: number[], color: number, opacity: number, z = 0) => {
