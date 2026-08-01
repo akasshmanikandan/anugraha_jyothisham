@@ -848,20 +848,20 @@ function LandingPage() {
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
           <div data-d3="deep" className="relative">
-            <div className="relative overflow-hidden" style={{ borderRadius: 16 }}>
+            <div className="relative overflow-hidden" style={{ borderRadius: 16, background: "#050F22" }}>
               <img
-                src={astrologerImg}
-                alt="Portrait of the astrologer"
-                width={1024}
-                height={1280}
+                src={sreeChakra.url}
+                alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
+                width={512}
+                height={512}
                 loading="lazy"
-                className="h-auto w-full object-cover"
+                className="h-auto w-full object-contain"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35)",
-                  background: "linear-gradient(180deg, transparent 50%, rgba(5,15,34,0.55) 100%)",
+                  background: "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.45) 100%)",
                 }}
               />
             </div>
@@ -875,39 +875,44 @@ function LandingPage() {
               The Astrologer
             </div>
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              Pandit Sri Anantha Śāstri
+              Sri. V. Govindan Namboodiri
             </h2>
-            <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-              "The sky is a mirror. My work is only to hold the mirror steady."
+            <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
+              Vedic Astrologer
             </p>
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              <p>
-                Trained from the age of eleven in the temple town of Thanjavur, Sri Anantha is the
-                fifth in an unbroken lineage of Jyotisha ācāryas. His practice weaves the
-                Bṛhat Parāśara Horā Śāstra with the living traditions of Nadi and Tantrikam.
-              </p>
-              <p>
-                Over sixteen years he has consulted for families, monastics and public figures with
-                the same care — never sensational, never rushed, always faithful to the śāstras.
-              </p>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
               {[
-                ["1998", "Initiation at Thanjavur temple"],
-                ["2005", "Guru-paramparā ordination"],
-                ["2009", "Founded Anugraha Jyotisham"],
-                ["2019", "Lineage in Nadi śāstra completed"],
-              ].map(([yr, ev]) => (
-                <div key={yr} className="border-l pl-4" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
-                  <div className="font-display text-[13px]" style={{ color: "#D4AF37" }}>
-                    {yr}
-                  </div>
-                  <div className="mt-1 text-[14px]" style={{ color: "#F7F4EA" }}>
-                    {ev}
-                  </div>
+                "Basic Horoscope, Predictions",
+                "Total Horoscope, Predictions",
+                "Birthday Annual Forecast",
+                "Marriage Matching",
+                "Muhurtha Date and Time",
+                "Numerology Predictions",
+                "Suitable & Lucky Name",
+                "Lucky Rasi Gems",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
+                  <span style={{ color: "#D4AF37" }}>◆</span>
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
+            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
+              All kinds of parihara related religious rituals and Homam are performed.
+            </p>
+            <div
+              className="mt-8 border-l pl-5"
+              style={{ borderColor: "rgba(212,175,55,0.35)" }}
+            >
+              <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
+                WE PROVIDE ASTROLOGICAL SERVICES “ANYWHERE IN THE WORLD”
+              </p>
+              <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
+                Tamil · English · Hindi · Malayalam
+              </p>
+            </div>
+          </div>
+
           </div>
         </div>
       </section>
