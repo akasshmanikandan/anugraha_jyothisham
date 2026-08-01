@@ -54,32 +54,36 @@ export default function VedicScene() {
     const R = 2.0; // radius of the inner girdle circle
 
     /* ---------- Nine interlocking trikonas ---------- */
-    // Base chord y-levels / apex y-levels (normalised, apex on opposite side)
-    const up = [
-      [-0.72, 1.0],
-      [-0.5, 0.68],
-      [-0.28, 0.44],
-      [-0.05, 0.2],
+    // [base y, apex y, half-width] — all symmetric about the vertical axis
+    const up: Array<[number, number, number]> = [
+      [-0.735, 1.0, 0.7],
+      [-0.51, 0.588, 0.87],
+      [-0.313, 0.487, 0.95],
+      [-0.145, 0.235, 0.62],
     ];
-    const down = [
-      [0.86, -1.0],
-      [0.6, -0.7],
-      [0.36, -0.46],
-      [0.12, -0.22],
-      [-0.12, 0.02],
+    const down: Array<[number, number, number]> = [
+      [0.926, -0.735, 0.4],
+      [0.588, -0.51, 0.82],
+      [0.487, -0.313, 0.88],
+      [0.235, -0.145, 0.97],
+      [0.145, -0.4, 0.56],
     ];
-    const half = (y: number) => Math.sqrt(Math.max(0, 1 - y * y)) * 0.97 * R;
-    const triPts = (by: number, ay: number) => {
+    const triPts = (by: number, ay: number, hw: number) => {
       const b = by * R;
       const a = ay * R;
-      const w = half(by);
+      const w = hw * R;
       return [-w, b, 0, w, b, 0, w, b, 0, 0, a, 0, 0, a, 0, -w, b, 0];
     };
 
     const trikonas = new THREE.Group();
-    up.forEach(([by, ay], i) => trikonas.add(seg(triPts(by, ay), GOLD, 0.9, 0.1 + i * 0.05)));
-    down.forEach(([by, ay], i) => trikonas.add(seg(triPts(by, ay), MAROON, 0.85, 0.12 + i * 0.05)));
+    up.forEach(([by, ay, hw], i) =>
+      trikonas.add(seg(triPts(by, ay, hw), GOLD, 0.92, 0.1 + i * 0.05))
+    );
+    down.forEach(([by, ay, hw], i) =>
+      trikonas.add(seg(triPts(by, ay, hw), i % 2 ? MAROON : GOLD, 0.88, 0.12 + i * 0.05))
+    );
     root.add(trikonas);
+
 
     /* ---------- Bindu ---------- */
     const bindu = new THREE.Mesh(
