@@ -12,13 +12,14 @@ import astrologerImg from "@/assets/astrologer.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyotisham — Guiding Lives Through Ancient Wisdom" },
+      { title: "Anugraha Jathakalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
       {
         name: "description",
         content:
-          "Traditional Vedic astrology, tantrikam, mantrikam and spiritual remedies from Anugraha Jyotisham. Sixteen years of guidance rooted in the śāstras.",
+          "Anugraha Jathakalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
-      { property: "og:title", content: "Anugraha Jyotisham — Ancient Vedic Wisdom" },
+      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrology" },
+
       {
         property: "og:description",
         content:
