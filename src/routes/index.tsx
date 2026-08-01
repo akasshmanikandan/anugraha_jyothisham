@@ -1270,7 +1270,7 @@ function LandingPage() {
             className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
             style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
           >
-            <span>© 2026 Anugraha Jyotisham. All rights reserved.</span>
+            <span>© 2026 Anugraha Jathakalaya. All rights reserved.</span>
             <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
               Ōm śānti śānti śānti
             </span>
