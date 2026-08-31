@@ -23,7 +23,18 @@ export const Route = createFileRoute("/services")({
         content: "Nine sacred disciplines of Vedic consultation, rooted in tradition.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content:
+          "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/services",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/services",
+      },
     ],
   }),
   component: ServicesPage,

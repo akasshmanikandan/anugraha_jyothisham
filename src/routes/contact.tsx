@@ -16,7 +16,17 @@ export const Route = createFileRoute("/contact")({
         content: "Reserve a private consultation, in person in Chennai or by video call worldwide.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/contact",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/contact",
+      },
     ],
   }),
   component: ContactPage,

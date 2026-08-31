@@ -1,4 +1,4 @@
-import { ClientOnly, createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 
 const VedicScene = lazy(() => import("@/components/VedicScene"));
@@ -8,6 +8,24 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+
+import {
+  CtaButton,
+  FAQS,
+  FaqAccordion,
+  FxToggle,
+  PROCESS,
+  SERVICES,
+  SectionDivider,
+  SectionHeading,
+  ServiceCard,
+  SiteFooter,
+  SiteHeader,
+  StatBlock,
+  TESTIMONIALS,
+  useFx3d,
+  useScrollDepth,
+} from "@/components/site/shared";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,20 +37,29 @@ export const Route = createFileRoute("/")({
           "Anugraha Jathakalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
       { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrology" },
-
       {
         property: "og:description",
         content:
           "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/",
+      },
     ],
   }),
   component: LandingPage,
 });
 
-/* ---------------- Zodiac Wheel ---------------- */
+/* ---------------- Zodiac Wheel (2D fallback) ---------------- */
 
 const ZODIAC_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
 
@@ -41,91 +68,44 @@ function ZodiacWheel() {
     <div className="wheel relative aspect-square w-full max-w-[560px]">
       <svg viewBox="-300 -300 600 600" className="w-full h-full">
         <g className="wheel-rotator">
-          {/* Outer ring */}
           <circle
-            cx="0"
-            cy="0"
-            r="280"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.75"
-            opacity="0.9"
-            data-draw
-            style={{ ["--dash" as string]: 1800, ["--delay" as string]: 0 }}
+            cx="0" cy="0" r="280" fill="none" stroke="#D4AF37" strokeWidth="0.75" opacity="0.9"
+            data-draw style={{ ["--dash" as string]: 1800, ["--delay" as string]: 0 }}
           />
           <circle
-            cx="0"
-            cy="0"
-            r="275"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.35"
-            opacity="0.6"
-            data-draw
-            style={{ ["--dash" as string]: 1800, ["--delay" as string]: 120 }}
+            cx="0" cy="0" r="275" fill="none" stroke="#D4AF37" strokeWidth="0.35" opacity="0.6"
+            data-draw style={{ ["--dash" as string]: 1800, ["--delay" as string]: 120 }}
           />
-          {/* Second ring */}
           <circle
-            cx="0"
-            cy="0"
-            r="235"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.5"
-            opacity="0.75"
-            data-draw
-            style={{ ["--dash" as string]: 1500, ["--delay" as string]: 300 }}
+            cx="0" cy="0" r="235" fill="none" stroke="#D4AF37" strokeWidth="0.5" opacity="0.75"
+            data-draw style={{ ["--dash" as string]: 1500, ["--delay" as string]: 300 }}
           />
-          {/* Glyph ring baseline */}
           <circle
-            cx="0"
-            cy="0"
-            r="205"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.35"
-            opacity="0.55"
-            data-draw
-            style={{ ["--dash" as string]: 1300, ["--delay" as string]: 450 }}
+            cx="0" cy="0" r="205" fill="none" stroke="#D4AF37" strokeWidth="0.35" opacity="0.55"
+            data-draw style={{ ["--dash" as string]: 1300, ["--delay" as string]: 450 }}
           />
-          {/* 12 divisions */}
           {Array.from({ length: 12 }).map((_, i) => {
             const a = (i * 30 * Math.PI) / 180;
             const x1 = +(Math.cos(a) * 205).toFixed(3);
             const y1 = +(Math.sin(a) * 205).toFixed(3);
             const x2 = +(Math.cos(a) * 275).toFixed(3);
             const y2 = +(Math.sin(a) * 275).toFixed(3);
-
             return (
               <line
-                key={i}
-                x1={x1}
-                y1={y1}
-                x2={x2}
-                y2={y2}
-                stroke="#D4AF37"
-                strokeWidth="0.5"
-                opacity="0.7"
-                data-draw
+                key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+                stroke="#D4AF37" strokeWidth="0.5" opacity="0.7" data-draw
                 style={{ ["--dash" as string]: 100, ["--delay" as string]: 600 + i * 40 }}
               />
             );
           })}
-          {/* Glyphs */}
           {ZODIAC_GLYPHS.map((g, i) => {
             const a = ((i * 30 + 15 - 90) * Math.PI) / 180;
             const x = Math.cos(a) * 240;
             const y = Math.sin(a) * 240;
             return (
               <text
-                key={g}
-                x={x}
-                y={y}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fontSize="20"
-                fill="#D4AF37"
-                opacity="0.85"
+                key={g} x={x} y={y} textAnchor="middle" dominantBaseline="central"
+                fontSize="20" fill="#D4AF37" opacity="0.85"
                 style={{
                   fontFamily: "Cinzel, serif",
                   animation: `drift-in 500ms ease-out ${1000 + i * 60}ms both`,
@@ -135,405 +115,43 @@ function ZodiacWheel() {
               </text>
             );
           })}
-          {/* Inner rings */}
           <circle
-            cx="0"
-            cy="0"
-            r="165"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.4"
-            opacity="0.55"
-            data-draw
-            style={{ ["--dash" as string]: 1100, ["--delay" as string]: 700 }}
+            cx="0" cy="0" r="165" fill="none" stroke="#D4AF37" strokeWidth="0.4" opacity="0.55"
+            data-draw style={{ ["--dash" as string]: 1100, ["--delay" as string]: 700 }}
           />
           <circle
-            cx="0"
-            cy="0"
-            r="120"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.4"
-            opacity="0.5"
-            data-draw
-            style={{ ["--dash" as string]: 800, ["--delay" as string]: 900 }}
+            cx="0" cy="0" r="120" fill="none" stroke="#D4AF37" strokeWidth="0.4" opacity="0.5"
+            data-draw style={{ ["--dash" as string]: 800, ["--delay" as string]: 900 }}
           />
-          {/* Inner 8-point rose */}
           {Array.from({ length: 8 }).map((_, i) => {
             const a = (i * 45 * Math.PI) / 180;
             return (
               <line
-                key={i}
-                x1={0}
-                y1={0}
-                x2={Math.cos(a) * 120}
-                y2={Math.sin(a) * 120}
-                stroke="#D4AF37"
-                strokeWidth="0.3"
-                opacity="0.45"
-                data-draw
+                key={i} x1={0} y1={0} x2={Math.cos(a) * 120} y2={Math.sin(a) * 120}
+                stroke="#D4AF37" strokeWidth="0.3" opacity="0.45" data-draw
                 style={{ ["--dash" as string]: 130, ["--delay" as string]: 1100 + i * 30 }}
               />
             );
           })}
-          {/* Innermost lotus dot */}
           <circle
-            cx="0"
-            cy="0"
-            r="60"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="0.4"
-            opacity="0.6"
-            data-draw
-            style={{ ["--dash" as string]: 400, ["--delay" as string]: 1300 }}
+            cx="0" cy="0" r="60" fill="none" stroke="#D4AF37" strokeWidth="0.4" opacity="0.6"
+            data-draw style={{ ["--dash" as string]: 400, ["--delay" as string]: 1300 }}
           />
           <circle
-            cx="0"
-            cy="0"
-            r="4"
-            fill="#D4AF37"
+            cx="0" cy="0" r="4" fill="#D4AF37"
             style={{ animation: "drift-in 500ms ease-out 1600ms both" }}
           />
         </g>
       </svg>
-      {/* soft central glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(212,175,55,0.10), transparent 55%)",
+          background: "radial-gradient(circle at 50% 50%, rgba(212,175,55,0.10), transparent 55%)",
         }}
       />
     </div>
   );
 }
-
-/* ---------------- CTA Button ---------------- */
-
-function CtaButton({
-  children,
-  variant = "ghost",
-  href,
-  onClick,
-  type,
-}: {
-  children: React.ReactNode;
-  variant?: "ghost" | "maroon";
-  href?: string;
-  onClick?: () => void;
-  type?: "button" | "submit";
-}) {
-  const cls =
-    variant === "maroon"
-      ? "bg-maroon text-ivory hover:bg-maroon-deep"
-      : "bg-transparent text-ivory";
-  const Cmp: any = href ? "a" : "button";
-  return (
-    <Cmp
-      href={href}
-      onClick={onClick}
-      type={type}
-      className={`cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 ${cls}`}
-      style={{ borderColor: "rgba(212,175,55,0.4)" }}
-    >
-      <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
-        <rect x="0.5" y="0.5" width="199" height="59" />
-      </svg>
-      <span className="relative z-10">{children}</span>
-    </Cmp>
-  );
-}
-
-/* ---------------- Section Divider ---------------- */
-
-function SectionDivider() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.querySelector(".divider-diamond")?.classList.add("in-view");
-            obs.disconnect();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className="flex items-center justify-center gap-4 py-14">
-      <div className="h-px w-24 md:w-48 gold-hairline" />
-      <div
-        className="divider-diamond h-2.5 w-2.5 border border-gold"
-        style={{ borderColor: "#D4AF37" }}
-      />
-      <div className="h-px w-24 md:w-48 gold-hairline" />
-    </div>
-  );
-}
-
-/* ---------------- Counter ---------------- */
-
-function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [value, setValue] = useState(0);
-  const doneRef = useRef(false);
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && !doneRef.current) {
-            doneRef.current = true;
-            const dur = 1600;
-            const start = performance.now();
-            const step = (t: number) => {
-              const p = Math.min(1, (t - start) / dur);
-              const eased = 1 - Math.pow(1 - p, 3);
-              setValue(Math.round(end * eased));
-              if (p < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [end]);
-  return (
-    <span ref={ref}>
-      {value}
-      {suffix}
-    </span>
-  );
-}
-
-/* ---------------- Service Icons (thin gold stroke SVGs) ---------------- */
-
-const stroke = {
-  fill: "none",
-  stroke: "#D4AF37",
-  strokeWidth: 1,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
-
-function IconAstrology() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <circle cx="24" cy="24" r="18" {...stroke} />
-      <circle cx="24" cy="24" r="12" {...stroke} />
-      <circle cx="24" cy="24" r="6" {...stroke} />
-      <line x1="24" y1="6" x2="24" y2="42" {...stroke} />
-      <line x1="6" y1="24" x2="42" y2="24" {...stroke} />
-    </svg>
-  );
-}
-function IconTantrikam() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <polygon points="24,6 42,38 6,38" {...stroke} />
-      <polygon points="24,42 6,10 42,10" {...stroke} />
-    </svg>
-  );
-}
-function IconMantrikam() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <path d="M24 6 C 14 14, 14 34, 24 42 C 34 34, 34 14, 24 6 Z" {...stroke} />
-      <circle cx="24" cy="24" r="3" {...stroke} />
-    </svg>
-  );
-}
-function IconVaithiyam() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <path d="M18 8 L18 22 C 12 26, 12 38, 24 42 C 36 38, 36 26, 30 22 L30 8" {...stroke} />
-      <line x1="18" y1="14" x2="30" y2="14" {...stroke} />
-    </svg>
-  );
-}
-function IconThambulam() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <path d="M24 42 C 8 30, 8 12, 24 8 C 40 12, 40 30, 24 42 Z" {...stroke} />
-      <path d="M24 8 C 24 20, 24 30, 24 42" {...stroke} />
-    </svg>
-  );
-}
-function IconFaceReading() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <ellipse cx="24" cy="24" rx="12" ry="16" {...stroke} />
-      <circle cx="19" cy="21" r="1" {...stroke} />
-      <circle cx="29" cy="21" r="1" {...stroke} />
-      <path d="M19 30 Q 24 33, 29 30" {...stroke} />
-    </svg>
-  );
-}
-function IconNadi() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <path d="M6 24 Q 12 12, 18 24 T 30 24 T 42 24" {...stroke} />
-      <line x1="6" y1="34" x2="42" y2="34" {...stroke} />
-      <line x1="6" y1="14" x2="42" y2="14" {...stroke} />
-    </svg>
-  );
-}
-function IconVaasthu() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <polyline points="8,22 24,8 40,22 40,40 8,40 8,22" {...stroke} />
-      <line x1="24" y1="8" x2="24" y2="40" {...stroke} />
-      <line x1="8" y1="22" x2="40" y2="22" {...stroke} />
-    </svg>
-  );
-}
-function IconNumerology() {
-  return (
-    <svg viewBox="0 0 48 48" width="40" height="40" className="icon-stroke">
-      <circle cx="24" cy="24" r="18" {...stroke} />
-      <polyline points="20,14 20,34" {...stroke} />
-      <polyline points="14,20 20,14 26,20" {...stroke} />
-      <polyline points="30,30 30,18 34,22" {...stroke} />
-    </svg>
-  );
-}
-
-const SERVICES = [
-  {
-    title: "Jyotisha",
-    sub: "Astrology",
-    body: "Vedic birth-chart analysis, dasha periods, and planetary remedies read from the sidereal śāstras.",
-    Icon: IconAstrology,
-  },
-  {
-    title: "Tantrikam",
-    sub: "Sacred Rituals",
-    body: "Traditional yantra installation and homa ceremonies for protection, prosperity and clarity.",
-    Icon: IconTantrikam,
-  },
-  {
-    title: "Mantrikam",
-    sub: "Mantra Sādhana",
-    body: "Personalised bīja and moola mantras with proper vidhi for chanting, initiation and japa.",
-    Icon: IconMantrikam,
-  },
-  {
-    title: "Vaithiyam",
-    sub: "Ayurvedic Guidance",
-    body: "Prakṛti-based counsel for restoring balance across dosha, diet and daily discipline.",
-    Icon: IconVaithiyam,
-  },
-  {
-    title: "Thambulam",
-    sub: "Betel Leaf Divination",
-    body: "Ancient south-Indian oracle reading for time-sensitive questions and turning points.",
-    Icon: IconThambulam,
-  },
-  {
-    title: "Sāmudrika",
-    sub: "Face Reading",
-    body: "Reading the temperament and destiny inscribed in the features of the face.",
-    Icon: IconFaceReading,
-  },
-  {
-    title: "Nadi",
-    sub: "Palm-Leaf Reading",
-    body: "Consultation of the Nadi granthas — recorded lives inscribed centuries before your birth.",
-    Icon: IconNadi,
-  },
-  {
-    title: "Vaasthu",
-    sub: "Sacred Geometry",
-    body: "Aligning homes, workplaces and temples with the directions, elements and mandala grid.",
-    Icon: IconVaasthu,
-  },
-  {
-    title: "Numerology",
-    sub: "Science of Numbers",
-    body: "Names, dates and vibrational numbers harmonised for personal and family wellbeing.",
-    Icon: IconNumerology,
-  },
-];
-
-/* ---------------- Testimonials ---------------- */
-
-const TESTIMONIALS = [
-  {
-    q: "The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
-    n: "Lakshmi Narayanan",
-    r: "Chennai",
-  },
-  {
-    q: "A rare astrologer who does not sensationalise. Every reading carried the weight of tradition and calm authority.",
-    n: "Ananya Iyer",
-    r: "Bengaluru",
-  },
-  {
-    q: "Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
-    n: "Rajesh Menon",
-    r: "Kochi",
-  },
-  {
-    q: "Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
-    n: "Priya Subramanian",
-    r: "Coimbatore",
-  },
-  {
-    q: "The Nadi reading was uncanny. Nothing embellished, nothing withheld — an honest window into karma.",
-    n: "Vikram Bhatt",
-    r: "Mumbai",
-  },
-  {
-    q: "After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
-    n: "Meera Krishnan",
-    r: "Trivandrum",
-  },
-];
-
-/* ---------------- Process Steps ---------------- */
-
-const PROCESS = [
-  { n: "01", t: "Book", d: "Reserve a private slot at a time of your choosing." },
-  { n: "02", t: "Birth Details", d: "Share date, time and place of birth in confidence." },
-  { n: "03", t: "Consultation", d: "A one-on-one reading held in person or by call." },
-  { n: "04", t: "Remedies", d: "Receive personalised mantras, yantras and rituals." },
-  { n: "05", t: "Follow-up", d: "Periodic guidance as the dasha and planets shift." },
-];
-
-/* ---------------- FAQ ---------------- */
-
-const FAQS = [
-  {
-    q: "How is a traditional consultation different from an online report?",
-    a: "A śāstric reading examines the interplay of chart, dasha, transits and lineage — nuances a template cannot see. Every remedy prescribed considers your capacity to practise it.",
-  },
-  {
-    q: "What information do I need to share before booking?",
-    a: "Your date of birth, exact time of birth (as close as possible), and place of birth. If unknown, we can perform a rectification session first.",
-  },
-  {
-    q: "Are the remedies difficult to follow?",
-    a: "Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis. Nothing is asked of you that cannot be honoured.",
-  },
-  {
-    q: "Is my consultation confidential?",
-    a: "Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer.",
-  },
-  {
-    q: "Do you offer follow-up consultations?",
-    a: "Yes. Most clients return once or twice a year, and during significant dasha transitions or life events.",
-  },
-];
 
 /* ---------------- Main page ---------------- */
 
@@ -541,14 +159,8 @@ function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [fx3d, setFx3d] = useState(true);
-
-  /* Reflect the 3D toggle on <html> so CSS transforms can be switched off */
-  useEffect(() => {
-    document.documentElement.dataset.fx = fx3d ? "on" : "off";
-  }, [fx3d]);
-
+  const [fx3d, toggleFx] = useFx3d();
+  useScrollDepth();
 
   /* Cursor embers — desktop hero only */
   useEffect(() => {
@@ -586,7 +198,6 @@ function LandingPage() {
 
     let raf = 0;
     const tick = () => {
-      // Leader follows mouse with easing; each subsequent ember follows the previous.
       const targetX = inside ? mouseX : positions[0].x;
       const targetY = inside ? mouseY : positions[0].y;
       positions[0].x += (targetX - positions[0].x) * 0.28;
@@ -601,7 +212,6 @@ function LandingPage() {
         embers[i].style.transform = `translate3d(${positions[i].x + drift - 3}px, ${
           positions[i].y + drift - 3
         }px, 0) scale(${1 - i / (N * 1.6)})`;
-        // ease opacity smoothly
         const cur = parseFloat(embers[i].style.opacity || "0");
         const next = cur + (baseOpacity - cur) * 0.12;
         embers[i].style.opacity = String(next);
@@ -617,41 +227,6 @@ function LandingPage() {
     };
   }, []);
 
-  /* Scroll-linked 3D depth: sets --p (-1..1) on every [data-d3] element */
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0;
-    let queued = false;
-
-    const update = () => {
-      queued = false;
-      const vh = window.innerHeight;
-      const nodes = document.querySelectorAll<HTMLElement>("[data-d3]");
-      nodes.forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
-        const center = r.top + r.height / 2;
-        const p = Math.max(-1, Math.min(1, (center - vh / 2) / vh));
-        el.style.setProperty("--p", p.toFixed(4));
-      });
-    };
-
-    const onScroll = () => {
-      if (queued) return;
-      queued = true;
-      raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
   /* Timeline wick fill on scroll */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -660,7 +235,6 @@ function LandingPage() {
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // start filling when top passes 80% of viewport, end at 20%
       const total = rect.height + vh * 0.6;
       const passed = Math.min(total, Math.max(0, vh * 0.8 - rect.top));
       setWick(Math.min(100, (passed / total) * 100));
@@ -674,65 +248,12 @@ function LandingPage() {
     };
   }, []);
 
-  const headline = useMemo(
-    () => ["Guiding", "Lives", "Through", "Ancient", "Wisdom"],
-    []
-  );
+  const headline = useMemo(() => ["Guiding", "Lives", "Through", "Ancient", "Wisdom"], []);
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
-      {/* 3D effects toggle */}
-      <button
-        type="button"
-        onClick={() => setFx3d((v) => !v)}
-        aria-pressed={fx3d}
-        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 border px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] backdrop-blur transition-colors"
-        style={{
-          borderColor: "rgba(212,175,55,0.4)",
-          background: "rgba(5,15,34,0.72)",
-          color: fx3d ? "#D4AF37" : "#C9C3B0",
-        }}
-      >
-        <span
-          className="inline-block h-1.5 w-1.5 rounded-full transition-colors"
-          style={{ background: fx3d ? "#D4AF37" : "rgba(201,195,176,0.4)" }}
-        />
-        3D {fx3d ? "On" : "Off"}
-      </button>
-
-
-      {/* Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-40">
-        <div
-          className="border-b"
-          style={{
-            borderColor: "rgba(212,175,55,0.15)",
-            background: "rgba(8,26,52,0.55)",
-            backdropFilter: "blur(14px)",
-          }}
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-            <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
-
-            </a>
-            <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
-              <a href="#services" className="hover:text-ivory transition-colors">Services</a>
-              <a href="#about" className="hover:text-ivory transition-colors">About</a>
-              <a href="#process" className="hover:text-ivory transition-colors">Process</a>
-              <a href="#testimonials" className="hover:text-ivory transition-colors">Voices</a>
-              <a href="#faq" className="hover:text-ivory transition-colors">FAQ</a>
-            </nav>
-            <a
-              href="#book"
-              className="hidden text-[12px] uppercase tracking-[0.22em] md:inline-block"
-              style={{ color: "#D4AF37" }}
-            >
-              Book →
-            </a>
-          </div>
-        </div>
-      </header>
+      <FxToggle fx3d={fx3d} toggle={toggleFx} />
+      <SiteHeader />
 
       {/* Hero */}
       <section
@@ -740,7 +261,6 @@ function LandingPage() {
         ref={heroRef}
         className="relative overflow-hidden pt-40 pb-24 md:pt-44 md:pb-32"
       >
-        {/* Subtle vignette — not a pulsing orb */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -778,13 +298,16 @@ function LandingPage() {
             </p>
 
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-              <CtaButton href="#book">Book Consultation</CtaButton>
+              <CtaButton href="/contact">Book Consultation</CtaButton>
               <CtaButton href="https://wa.me/919999999999" variant="maroon">
                 WhatsApp
               </CtaButton>
             </div>
 
-            <div className="hero-stats mt-16 grid grid-cols-3 gap-6 border-t pt-8" style={{ borderColor: "rgba(212,175,55,0.18)" }}>
+            <div
+              className="hero-stats mt-16 grid grid-cols-3 gap-6 border-t pt-8"
+              style={{ borderColor: "rgba(212,175,55,0.18)" }}
+            >
               <StatBlock end={16} suffix="+" label="Years of Practice" />
               <StatBlock end={5000} suffix="+" label="Clients Guided" />
               <StatBlock end={9} suffix="" label="Sacred Disciplines" />
@@ -802,53 +325,41 @@ function LandingPage() {
               <ZodiacWheel />
             )}
           </div>
-
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* Services */}
-      <section id="services" className="mx-auto max-w-7xl px-6 md:px-10">
+      {/* Services preview */}
+      <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
           eyebrow="The Nine Disciplines"
           title="Sacred Consultations"
           quote="Each art a lamp; together, they illumine the whole of one life."
         />
-        <div className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "rgba(212,175,55,0.15)" }}>
-          {SERVICES.map((s) => (
-            <article
-              key={s.title}
-              data-d3="card"
-              className="service-card group relative overflow-hidden p-8 md:p-10"
-              style={{ background: "#081A34" }}
-            >
-
-              <div className="mb-6">
-                <s.Icon />
-              </div>
-              <div
-                className="mb-1 text-[10px] uppercase tracking-[0.28em]"
-                style={{ color: "#D4AF37" }}
-              >
-                {s.sub}
-              </div>
-              <h3 className="font-display text-2xl text-ivory">{s.title}</h3>
-              <p className="mt-4 text-[14.5px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-                {s.body}
-              </p>
-            </article>
+        <div
+          className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
+          style={{ background: "rgba(212,175,55,0.15)" }}
+        >
+          {SERVICES.slice(0, 3).map((s) => (
+            <ServiceCard key={s.title} s={s} />
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <CtaButton href="/services">View All Nine Disciplines</CtaButton>
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* About */}
-      <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
+      {/* About preview */}
+      <section className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
           <div data-d3="deep" className="relative">
-            <div className="relative overflow-hidden" style={{ borderRadius: 16, background: "#050F22" }}>
+            <div
+              className="relative overflow-hidden"
+              style={{ borderRadius: 16, background: "#050F22" }}
+            >
               <img
                 src={sreeChakra.url}
                 alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
@@ -877,39 +388,19 @@ function LandingPage() {
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
               Sri. V. Govindan Namboodiri
             </h2>
-            <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
+            <p
+              className="mt-3 text-[12px] uppercase tracking-[0.28em]"
+              style={{ color: "#D4AF37" }}
+            >
               Vedic Astrologer
             </p>
-            <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {[
-                "Basic Horoscope, Predictions",
-                "Total Horoscope, Predictions",
-                "Birthday Annual Forecast",
-                "Marriage Matching",
-                "Muhurtha Date and Time",
-                "Numerology Predictions",
-                "Suitable & Lucky Name",
-                "Lucky Rasi Gems",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
-                  <span style={{ color: "#D4AF37" }}>◆</span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
             <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              All kinds of parihara related religious rituals and Homam are performed.
+              Horoscope and predictions, marriage matching, muhurtha, numerology, lucky names and
+              rasi gems — with all kinds of parihara rituals and Homam performed. Astrological
+              services anywhere in the world, in Tamil, English, Hindi and Malayalam.
             </p>
-            <div
-              className="mt-8 border-l pl-5"
-              style={{ borderColor: "rgba(212,175,55,0.35)" }}
-            >
-              <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
-                WE PROVIDE ASTROLOGICAL SERVICES “ANYWHERE IN THE WORLD”
-              </p>
-              <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
-                Tamil · English · Hindi · Malayalam
-              </p>
+            <div className="mt-8">
+              <CtaButton href="/about">About the Practice</CtaButton>
             </div>
           </div>
         </div>
@@ -917,52 +408,8 @@ function LandingPage() {
 
       <SectionDivider />
 
-      {/* Why Choose Us */}
-      <section className="mx-auto max-w-7xl px-6 md:px-10">
-        <SectionHeading
-          eyebrow="Why Anugraha"
-          title="Tradition, Held Whole"
-          quote="What is old must not be antique — it must be alive."
-        />
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              t: "Unbroken Lineage",
-              d: "Five generations of temple astrologers, taught in the classical guru-śiṣya tradition.",
-            },
-            {
-              t: "Śāstric Fidelity",
-              d: "Every reading grounded in Parāśara, Jaimini and Nadi literature — never intuition alone.",
-            },
-            {
-              t: "Discreet Practice",
-              d: "Consultations by appointment only, held with the confidentiality of a physician.",
-            },
-            {
-              t: "Practical Remedies",
-              d: "Prescriptions calibrated to your life — never asking what you cannot faithfully do.",
-            },
-          ].map((x, i) => (
-            <div key={i} className="glass-card p-8">
-              <div
-                className="mb-5 font-display text-[13px] tracking-[0.3em]"
-                style={{ color: "#D4AF37" }}
-              >
-                0{i + 1}
-              </div>
-              <h3 className="font-display text-xl text-ivory">{x.t}</h3>
-              <p className="mt-4 text-[14.5px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-                {x.d}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <SectionDivider />
-
       {/* Process Timeline */}
-      <section id="process" className="relative py-24" style={{ background: "#050F22" }}>
+      <section className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
             eyebrow="Consultation Path"
@@ -984,9 +431,7 @@ function LandingPage() {
                       style={{
                         background: "#050F22",
                         border: `1px solid ${active ? "#D4AF37" : "rgba(212,175,55,0.3)"}`,
-                        boxShadow: active
-                          ? "0 0 24px rgba(212,175,55,0.35)"
-                          : "none",
+                        boxShadow: active ? "0 0 24px rgba(212,175,55,0.35)" : "none",
                       }}
                     >
                       <span
@@ -1011,7 +456,7 @@ function LandingPage() {
       <SectionDivider />
 
       {/* Testimonials */}
-      <section id="testimonials" className="overflow-hidden">
+      <section className="overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
             eyebrow="Voices"
@@ -1020,7 +465,6 @@ function LandingPage() {
           />
         </div>
         <div className="marquee relative mt-16 overflow-hidden">
-          {/* edge fades */}
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32"
             style={{ background: "linear-gradient(to right, #081A34, transparent)" }}
@@ -1038,7 +482,10 @@ function LandingPage() {
                 <blockquote className="mt-3 font-serif-italic text-[17px] leading-relaxed text-ivory">
                   {t.q}
                 </blockquote>
-                <figcaption className="mt-6 text-[12px] uppercase tracking-[0.22em]" style={{ color: "#C9C3B0" }}>
+                <figcaption
+                  className="mt-6 text-[12px] uppercase tracking-[0.22em]"
+                  style={{ color: "#C9C3B0" }}
+                >
                   {t.n} · <span style={{ color: "#D4AF37" }}>{t.r}</span>
                 </figcaption>
               </figure>
@@ -1068,7 +515,6 @@ function LandingPage() {
                 transitionDelay: `${i * 40}ms`,
               }}
             >
-
               <img
                 src={g}
                 alt=""
@@ -1080,8 +526,7 @@ function LandingPage() {
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
-                  background:
-                    "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.7) 100%)",
+                  background: "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.7) 100%)",
                 }}
               />
             </figure>
@@ -1091,318 +536,53 @@ function LandingPage() {
 
       <SectionDivider />
 
-      {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-4xl px-6 md:px-10">
+      {/* FAQ preview */}
+      <section className="mx-auto max-w-4xl px-6 md:px-10">
         <SectionHeading
           eyebrow="Questions"
           title="Before You Begin"
           quote="Ask freely — clarity is itself a first remedy."
         />
-        <div className="mt-14 divide-y" style={{ borderColor: "rgba(212,175,55,0.2)" }}>
-          {FAQS.map((f, i) => {
-            const open = openFaq === i;
-            return (
-              <div key={i} className="py-6" style={{ borderTop: i === 0 ? "1px solid rgba(212,175,55,0.2)" : undefined, borderBottom: "1px solid rgba(212,175,55,0.2)" }}>
-                <button
-                  onClick={() => setOpenFaq(open ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 text-left"
-                >
-                  <span className="font-display text-lg text-ivory md:text-xl">{f.q}</span>
-                  <span
-                    className="inline-block h-6 w-6 shrink-0 border transition-transform duration-500"
-                    style={{
-                      borderColor: "rgba(212,175,55,0.6)",
-                      transform: open ? "rotate(45deg)" : "rotate(0deg)",
-                    }}
-                  >
-                    <span
-                      className="relative block h-full w-full"
-                      style={{ color: "#D4AF37" }}
-                    >
-                      <span
-                        className="absolute left-1/2 top-1/2 h-px w-3 -translate-x-1/2 -translate-y-1/2"
-                        style={{ background: "#D4AF37" }}
-                      />
-                      <span
-                        className="absolute left-1/2 top-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2"
-                        style={{ background: "#D4AF37" }}
-                      />
-                    </span>
-                  </span>
-                </button>
-                <div className={`faq-panel ${open ? "open" : ""} mt-0`}>
-                  <div>
-                    <p
-                      className="pt-5 pr-10 text-[15px] leading-relaxed"
-                      style={{ color: "#C9C3B0" }}
-                    >
-                      {f.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <FaqAccordion items={FAQS.slice(0, 3)} />
+        <div className="mt-10 text-center">
+          <CtaButton href="/faq">Read All Questions</CtaButton>
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* Appointment Form */}
-      <section id="book" className="relative py-24" style={{ background: "#050F22" }}>
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr]">
-          <div>
-            <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              Reserve a Sitting
-            </div>
-            <h2 className="mt-4 font-display text-4xl leading-tight text-ivory md:text-[44px]">
-              A private hour with the śāstra.
-            </h2>
-            <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-              Consultations by appointment. In person at our study in Chennai, or by secure video
-              call.
-            </p>
-            <div className="mt-10 space-y-4 text-[14px]" style={{ color: "#C9C3B0" }}>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Hours
-                </span>
-                <span>Mon–Sat · 07:00 – 19:00 IST</span>
-              </div>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Address
-                </span>
-                <span>No. 7, Kutchery Road, Mylapore, Chennai 600004</span>
-              </div>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Contact
-                </span>
-                <span>+91 99999 99999 · office@anugrahajyotisham.in</span>
-              </div>
-            </div>
+      {/* Contact preview */}
+      <section className="relative py-24" style={{ background: "#050F22" }}>
+        <div className="mx-auto max-w-4xl px-6 text-center md:px-10">
+          <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
+            Reserve a Sitting
           </div>
-
-          <form
-            className="glass-card p-8 md:p-10"
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
+          <h2 className="mt-4 font-display text-4xl leading-tight text-ivory md:text-[44px]">
+            A private hour with the śāstra.
+          </h2>
+          <p
+            className="mx-auto mt-6 max-w-2xl font-serif-italic text-xl"
+            style={{ color: "#C9C3B0" }}
           >
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field label="Full Name" placeholder="Your name" />
-              <Field label="Phone" placeholder="+91 …" />
-              <Field label="Date of Birth" type="date" />
-              <Field label="Time of Birth" type="time" />
-              <div className="md:col-span-2">
-                <Field label="Place of Birth" placeholder="Town, State" />
-              </div>
-              <div className="md:col-span-2">
-                <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  Nature of Consultation
-                </label>
-                <select className="field w-full px-4 py-3 text-[14px]">
-                  <option>Jyotisha — Birth chart reading</option>
-                  <option>Nadi — Palm-leaf consultation</option>
-                  <option>Vaasthu — Home / workplace</option>
-                  <option>Marriage compatibility</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  Your Question
-                </label>
-                <textarea
-                  rows={4}
-                  className="field w-full px-4 py-3 text-[14px]"
-                  placeholder="Briefly describe the concern you wish to bring…"
-                />
-              </div>
-            </div>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <CtaButton type="submit">Request Appointment</CtaButton>
-              <span className="font-serif-italic text-[13px]" style={{ color: "#C9C3B0" }}>
-                We reply within one working day.
-              </span>
-            </div>
-          </form>
+            Consultations by appointment, in person at Mylapore, Chennai, or by secure video call —
+            anywhere in the world.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <CtaButton href="/contact">Book a Consultation</CtaButton>
+            <CtaButton href="https://wa.me/919999999999" variant="maroon">
+              WhatsApp
+            </CtaButton>
+          </div>
+          <p className="mt-8 text-[13px]" style={{ color: "#C9C3B0" }}>
+            Mon–Sat · 07:00 – 19:00 IST · +91 99999 99999 ·{" "}
+            <Link to="/contact" className="underline" style={{ color: "#D4AF37" }}>
+              Full details &amp; appointment form
+            </Link>
+          </p>
         </div>
       </section>
 
-      {/* Footer with temple silhouette */}
-      <footer className="relative overflow-hidden pt-16" style={{ background: "#050F22" }}>
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
-              </div>
-              <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
-                A private consultancy in traditional Vedic astrology and spiritual practice.
-              </p>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                Consultation
-              </div>
-              <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li><a href="#services">Nine Disciplines</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#book">Book a Sitting</a></li>
-              </ul>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                Contact
-              </div>
-              <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li>+91 99999 99999</li>
-                <li>office@anugrahajyotisham.in</li>
-                <li>Mylapore, Chennai</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Temple silhouette */}
-          <div className="mt-16 -mb-2">
-            <TempleSilhouette />
-          </div>
-          <div
-            className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
-            style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
-          >
-            <span>© 2026 Anugraha Jathakalaya. All rights reserved.</span>
-            <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
-              Ōm śānti śānti śānti
-            </span>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
-  );
-}
-
-/* ---------------- Small components ---------------- */
-
-function StatBlock({ end, suffix, label }: { end: number; suffix: string; label: string }) {
-  return (
-    <div>
-      <div className="font-display text-3xl md:text-4xl" style={{ color: "#D4AF37" }}>
-        <Counter end={end} suffix={suffix} />
-      </div>
-      <div
-        className="mt-2 text-[11px] uppercase tracking-[0.22em]"
-        style={{ color: "#C9C3B0" }}
-      >
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  quote,
-}: {
-  eyebrow: string;
-  title: string;
-  quote: string;
-}) {
-  return (
-    <div data-d3="float" className="mx-auto max-w-3xl text-center">
-      <div className="text-[10px] uppercase tracking-[0.36em]" style={{ color: "#D4AF37" }}>
-        {eyebrow}
-      </div>
-      <h2 className="mt-5 font-display text-4xl leading-tight text-ivory md:text-[48px]">
-        {title}
-      </h2>
-      <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-        {quote}
-      </p>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  placeholder,
-  type = "text",
-}: {
-  label: string;
-  placeholder?: string;
-  type?: string;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-        {label}
-      </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="field w-full px-4 py-3 text-[14px]"
-      />
-    </div>
-  );
-}
-
-function TempleSilhouette() {
-  // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
-  return (
-    <svg
-      viewBox="0 -20 1200 220"
-      className="w-full"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0A2140" />
-          <stop offset="100%" stopColor="#050F22" />
-        </linearGradient>
-      </defs>
-      {/* left small shikhara */}
-      <path
-        d="M 0 200 L 0 140 L 60 140 L 60 120 L 80 100 L 100 80 L 120 100 L 140 120 L 140 140 L 200 140 L 200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* main gopuram */}
-      <path
-        d="M 240 200 L 240 130 L 300 130 L 300 110 L 320 90 L 340 70 L 360 50 L 380 30 L 400 15 L 420 30 L 440 50 L 460 70 L 480 90 L 500 110 L 500 130 L 560 130 L 560 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.65"
-      />
-      {/* kalasha */}
-      <circle cx="400" cy="10" r="4" fill="#D4AF37" opacity="0.85" />
-      <line x1="400" y1="4" x2="400" y2="15" stroke="#D4AF37" strokeWidth="0.7" opacity="0.7" />
-      {/* right big gopuram (mirrored, taller) */}
-      <path
-        d="M 600 200 L 600 150 L 660 150 L 660 130 L 680 110 L 700 90 L 720 70 L 740 45 L 760 20 L 780 0 L 800 20 L 820 45 L 840 70 L 860 90 L 880 110 L 900 130 L 900 150 L 960 150 L 960 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.7"
-      />
-      <circle cx="780" cy="-4" r="4" fill="#D4AF37" opacity="0.9" />
-      <line x1="780" y1="-10" x2="780" y2="4" stroke="#D4AF37" strokeWidth="0.7" opacity="0.75" />
-      {/* right small shikhara */}
-      <path
-        d="M 1000 200 L 1000 140 L 1060 140 L 1060 120 L 1080 100 L 1100 80 L 1120 100 L 1140 120 L 1140 140 L 1200 140 L 1200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* horizon hairline */}
-      <line x1="0" y1="199" x2="1200" y2="199" stroke="#D4AF37" strokeOpacity="0.25" strokeWidth="0.6" />
-    </svg>
   );
 }
