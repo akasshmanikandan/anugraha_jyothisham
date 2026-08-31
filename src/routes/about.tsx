@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, SectionDivider, SectionHeading } from "@/components/site/shared";
 import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Route = createFileRoute("/about")({
@@ -41,10 +42,10 @@ function AboutPage() {
     <PageFrame>
       {/* Astrologer */}
       <section className="relative pb-24 pt-40 md:pt-44" style={{ background: "#050F22" }}>
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-16 px-6 md:px-10 lg:grid-cols-2">
           <div data-d3="deep" className="relative">
             <div
-              className="relative overflow-hidden"
+              className="relative overflow-hidden shadow-2xl"
               style={{ borderRadius: 16, background: "#050F22" }}
             >
               <img
@@ -68,7 +69,14 @@ function AboutPage() {
               style={{ borderColor: "rgba(212,175,55,0.4)" }}
             />
           </div>
-          <div>
+          <div
+            className="relative overflow-hidden px-8 py-10 md:px-14 md:py-12"
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(109,31,45,0.74), rgba(5,15,34,0.58)), url(${deityBhadrakali})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+          >
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
               {t.about.eyebrow}
             </div>
@@ -79,23 +87,21 @@ function AboutPage() {
               {t.about.sub}
             </p>
             <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {[
-                ...t.about.bullets,
-              ].map((item: string) => (
+              {t.about.bullets.map((item: string) => (
                 <div
                   key={item}
-                  className="flex items-start gap-3 text-[15px]"
-                  style={{ color: "#C9C3B0" }}
+                  className="flex items-start gap-3 text-[15px] leading-relaxed"
+                  style={{ color: "#E7DDC8" }}
                 >
-                  <span style={{ color: "#D4AF37" }}>◆</span>
+                  <span style={{ color: "#D4AF37" }}>•</span>
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
+            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#E7DDC8" }}>
               {t.about.parihara}
             </p>
-            <div className="mt-8 border-l pl-5" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
+            <div className="mt-8 border-l pl-5" style={{ borderColor: "rgba(212,175,55,0.55)" }}>
               <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
                 {t.about.bannerText}
               </p>

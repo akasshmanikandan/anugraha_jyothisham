@@ -12,7 +12,8 @@ import ritual4 from "@/assets/ritual-4.jpeg";
 import ritual5 from "@/assets/ritual-5.jpeg";
 import ritual6 from "@/assets/ritual-6.jpeg";
 import ritual8 from "@/assets/ritual-8.jpeg";
-import { useLanguage } from "@/contexts/LanguageContext";
+import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
+import { useLanguage, type Language } from "@/contexts/LanguageContext";
 
 import {
   CtaButton,
@@ -166,7 +167,7 @@ function LandingPage() {
   const galleryStripRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [fx3d, toggleFx] = useFx3d();
-  const { t } = useLanguage();
+  const { lang, setLang, t } = useLanguage();
   useScrollDepth();
 
   /* Cursor embers — desktop hero only */
@@ -262,6 +263,12 @@ function LandingPage() {
     () => [godPhoto1, ritual1, ritual2, ritual3, ritual4, ritual5, ritual6, ritual8],
     []
   );
+  const languageOptions: { code: Language; label: string }[] = [
+    { code: "en", label: "English" },
+    { code: "ta", label: "Tamil" },
+    { code: "ml", label: "Malayalam" },
+    { code: "hi", label: "Hindi" },
+  ];
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
@@ -308,6 +315,33 @@ function LandingPage() {
             >
               {t.hero.description}
             </p>
+
+            <div className="hero-tagline mt-12">
+              <div
+                className="text-[10px] uppercase tracking-[0.32em]"
+                style={{ color: "#D4AF37" }}
+              >
+                {t.hero.chooseLang}
+              </div>
+              <div className="mt-5 flex flex-wrap items-center gap-4">
+                {languageOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    onClick={() => setLang(option.code)}
+                    aria-pressed={lang === option.code}
+                    className="min-w-[136px] border px-7 py-4 text-[13px] font-semibold uppercase tracking-[0.22em] transition-colors"
+                    style={{
+                      borderColor: lang === option.code ? "#D4AF37" : "rgba(212,175,55,0.28)",
+                      color: lang === option.code ? "#D4AF37" : "#C9C3B0",
+                      background: lang === option.code ? "rgba(212,175,55,0.08)" : "rgba(5,15,34,0.22)",
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
               <CtaButton href="/contact">{t.hero.bookBtn}</CtaButton>
@@ -366,10 +400,10 @@ function LandingPage() {
 
       {/* About preview */}
       <section className="relative py-24" style={{ background: "#050F22" }}>
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-16 px-6 md:px-10 lg:grid-cols-2">
           <div data-d3="deep" className="relative">
             <div
-              className="relative overflow-hidden"
+              className="relative overflow-hidden shadow-2xl"
               style={{ borderRadius: 16, background: "#050F22" }}
             >
               <img
@@ -393,7 +427,14 @@ function LandingPage() {
               style={{ borderColor: "rgba(212,175,55,0.4)" }}
             />
           </div>
-          <div>
+          <div
+            className="relative overflow-hidden px-8 py-10 md:px-14 md:py-12"
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(109,31,45,0.74), rgba(5,15,34,0.58)), url(${deityBhadrakali})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+          >
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
               {t.about.eyebrow}
             </div>
@@ -406,11 +447,31 @@ function LandingPage() {
             >
               {t.about.sub}
             </p>
-            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              {t.about.parihara} {t.about.bannerText}. {t.about.languagesText}.
+            <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+              {t.about.bullets.map((item: string) => (
+                <div
+                  key={item}
+                  className="flex items-start gap-3 text-[15px] leading-relaxed"
+                  style={{ color: "#E7DDC8" }}
+                >
+                  <span style={{ color: "#D4AF37" }}>•</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#E7DDC8" }}>
+              {t.about.parihara}
             </p>
-            <div className="mt-8">
-              <CtaButton href="/about">{t.about.cta || "About the Practice"}</CtaButton>
+            <div className="mt-8 border-l pl-5" style={{ borderColor: "rgba(212,175,55,0.55)" }}>
+              <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
+                {t.about.bannerText}
+              </p>
+              <p
+                className="mt-2 text-[13px] uppercase tracking-[0.24em]"
+                style={{ color: "#D4AF37" }}
+              >
+                {t.about.languagesText}
+              </p>
             </div>
           </div>
         </div>
