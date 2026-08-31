@@ -419,6 +419,7 @@ function LandingPage() {
                 height={512}
                 loading="lazy"
                 className="h-auto w-full object-contain"
+                style={{ opacity: 0.48, mixBlendMode: "screen" }}
               />
               <div
                 className="pointer-events-none absolute inset-0"
