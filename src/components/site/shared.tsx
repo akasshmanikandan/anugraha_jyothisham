@@ -395,7 +395,7 @@ export function SiteFooter() {
               className="transition-colors hover:text-ivory"
               style={{ color: "#D4AF37" }}
             >
-              Developed by Troyflex
+              Designed and Developed by Troyflex
             </a>
             <span
               className="font-serif-italic normal-case tracking-normal text-[13px]"
