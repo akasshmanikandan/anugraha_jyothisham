@@ -3,11 +3,16 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 
 const VedicScene = lazy(() => import("@/components/VedicScene"));
 
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
 import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+import godPhoto1 from "@/assets/god-photo-1.jpeg";
+import ritual1 from "@/assets/ritual-1.jpeg";
+import ritual2 from "@/assets/ritual-2.jpeg";
+import ritual3 from "@/assets/ritual-3.jpeg";
+import ritual4 from "@/assets/ritual-4.jpeg";
+import ritual5 from "@/assets/ritual-5.jpeg";
+import ritual6 from "@/assets/ritual-6.jpeg";
+import ritual8 from "@/assets/ritual-8.jpeg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import {
   CtaButton,
@@ -158,8 +163,10 @@ function ZodiacWheel() {
 function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
+  const galleryStripRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [fx3d, toggleFx] = useFx3d();
+  const { t } = useLanguage();
   useScrollDepth();
 
   /* Cursor embers — desktop hero only */
@@ -248,7 +255,13 @@ function LandingPage() {
     };
   }, []);
 
-  const headline = useMemo(() => ["Guiding", "Lives", "Through", "Ancient", "Wisdom"], []);
+  const headline = useMemo(() => t.hero.headline, [t.hero.headline]);
+  const services = SERVICES.map((service, index) => ({ ...service, ...t.services.items[index] }));
+  const process = t.process.steps;
+  const galleryPhotos = useMemo(
+    () => [godPhoto1, ritual1, ritual2, ritual3, ritual4, ritual5, ritual6, ritual8],
+    []
+  );
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
@@ -275,7 +288,7 @@ function LandingPage() {
               style={{ borderColor: "rgba(212,175,55,0.35)", color: "#D4AF37" }}
             >
               <span className="h-1 w-1 rounded-full" style={{ background: "#D4AF37" }} />
-              Since 2009 · Rooted in Śāstra
+              {t.hero.tagline}
             </div>
 
             <h1 className="font-display text-[42px] leading-[1.05] tracking-tight text-ivory sm:text-[54px] md:text-[64px] lg:text-[68px]">
@@ -293,14 +306,13 @@ function LandingPage() {
               className="hero-tagline mt-8 max-w-xl font-serif-italic text-xl md:text-[22px]"
               style={{ color: "#C9C3B0" }}
             >
-              A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy —
-              carried forward from a lineage of temple astrologers.
+              {t.hero.description}
             </p>
 
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-              <CtaButton href="/contact">Book Consultation</CtaButton>
+              <CtaButton href="/contact">{t.hero.bookBtn}</CtaButton>
               <CtaButton href="https://wa.me/919999999999" variant="maroon">
-                WhatsApp
+                {t.hero.whatsappBtn}
               </CtaButton>
             </div>
 
@@ -308,9 +320,9 @@ function LandingPage() {
               className="hero-stats mt-16 grid grid-cols-3 gap-6 border-t pt-8"
               style={{ borderColor: "rgba(212,175,55,0.18)" }}
             >
-              <StatBlock end={16} suffix="+" label="Years of Practice" />
-              <StatBlock end={5000} suffix="+" label="Clients Guided" />
-              <StatBlock end={9} suffix="" label="Sacred Disciplines" />
+              <StatBlock end={16} suffix="+" label={t.hero.yearsPractice} />
+              <StatBlock end={5000} suffix="+" label={t.hero.clientsGuided} />
+              <StatBlock end={9} suffix="" label={t.hero.sacredDisciplines} />
             </div>
           </div>
 
@@ -333,20 +345,20 @@ function LandingPage() {
       {/* Services preview */}
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="The Nine Disciplines"
-          title="Sacred Consultations"
-          quote="Each art a lamp; together, they illumine the whole of one life."
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
+          quote={t.services.quote}
         />
         <div
           className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
           style={{ background: "rgba(212,175,55,0.15)" }}
         >
-          {SERVICES.slice(0, 3).map((s) => (
+          {services.slice(0, 3).map((s) => (
             <ServiceCard key={s.title} s={s} />
           ))}
         </div>
         <div className="mt-10 text-center">
-          <CtaButton href="/services">View All Nine Disciplines</CtaButton>
+          <CtaButton href="/services">{t.services.viewAll || "View All Nine Disciplines"}</CtaButton>
         </div>
       </section>
 
@@ -383,24 +395,22 @@ function LandingPage() {
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              The Astrologer
+              {t.about.eyebrow}
             </div>
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              Sri. V. Govindan Namboodiri
+              {t.about.title}
             </h2>
             <p
               className="mt-3 text-[12px] uppercase tracking-[0.28em]"
               style={{ color: "#D4AF37" }}
             >
-              Vedic Astrologer
+              {t.about.sub}
             </p>
             <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              Horoscope and predictions, marriage matching, muhurtha, numerology, lucky names and
-              rasi gems — with all kinds of parihara rituals and Homam performed. Astrological
-              services anywhere in the world, in Tamil, English, Hindi and Malayalam.
+              {t.about.parihara} {t.about.bannerText}. {t.about.languagesText}.
             </p>
             <div className="mt-8">
-              <CtaButton href="/about">About the Practice</CtaButton>
+              <CtaButton href="/about">{t.about.cta || "About the Practice"}</CtaButton>
             </div>
           </div>
         </div>
@@ -412,9 +422,9 @@ function LandingPage() {
       <section className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
-            eyebrow="Consultation Path"
-            title="Five Steps, Held with Care"
-            quote="The right path is walked slowly, one lamp at a time."
+            eyebrow={t.process.eyebrow}
+            title={t.process.title}
+            quote={t.process.quote}
           />
 
           <div ref={timelineRef} className="relative mt-20">
@@ -422,8 +432,8 @@ function LandingPage() {
             <div className="wick-fill" style={{ ["--wick" as string]: `${wick}%` }} />
 
             <ol className="relative grid grid-cols-2 gap-y-14 md:grid-cols-5 md:gap-y-0">
-              {PROCESS.map((p, i) => {
-                const active = wick > (i / (PROCESS.length - 1)) * 100 - 5;
+              {process.map((p, i) => {
+                const active = wick > (i / (process.length - 1)) * 100 - 5;
                 return (
                   <li key={p.n} className="relative flex flex-col items-center px-3 text-center">
                     <div
@@ -459,9 +469,9 @@ function LandingPage() {
       <section className="overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
-            eyebrow="Voices"
-            title="Words Left Behind"
-            quote="Gratitude is the only offering that outlasts the ritual."
+            eyebrow={t.testimonials.eyebrow}
+            title={t.testimonials.title}
+            quote={t.testimonials.quote}
           />
         </div>
         <div className="marquee relative mt-16 overflow-hidden">
@@ -474,19 +484,19 @@ function LandingPage() {
             style={{ background: "linear-gradient(to left, #081A34, transparent)" }}
           />
           <div className="marquee-track flex gap-6 w-max py-4">
-            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+            {[...t.testimonials.items, ...t.testimonials.items].map((testimonial, i) => (
               <figure key={i} className="glass-card w-[380px] shrink-0 p-8">
                 <div className="font-display text-3xl leading-none" style={{ color: "#D4AF37" }}>
                   &ldquo;
                 </div>
                 <blockquote className="mt-3 font-serif-italic text-[17px] leading-relaxed text-ivory">
-                  {t.q}
+                  {testimonial.q}
                 </blockquote>
                 <figcaption
                   className="mt-6 text-[12px] uppercase tracking-[0.22em]"
                   style={{ color: "#C9C3B0" }}
                 >
-                  {t.n} · <span style={{ color: "#D4AF37" }}>{t.r}</span>
+                  {testimonial.n} · <span style={{ color: "#D4AF37" }}>{testimonial.r}</span>
                 </figcaption>
               </figure>
             ))}
@@ -499,29 +509,57 @@ function LandingPage() {
       {/* Gallery */}
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="From the Practice"
-          title="Instruments & Rituals"
-          quote="The tools are old; the questions, always new."
+          eyebrow={t.gallery.eyebrow}
+          title={t.gallery.title}
+          quote={t.gallery.quote}
         />
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
+        <div className="mt-16">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <p className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#C9C3B0" }}>
+              {t.gallery.scrollArchive}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => galleryStripRef.current?.scrollBy({ left: -420, behavior: "smooth" })}
+                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
+                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
+              >
+                {t.gallery.prev}
+              </button>
+              <button
+                type="button"
+                onClick={() => galleryStripRef.current?.scrollBy({ left: 420, behavior: "smooth" })}
+                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
+                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
+              >
+                {t.gallery.next}
+              </button>
+            </div>
+          </div>
+          <div
+            ref={galleryStripRef}
+            className="flex gap-4 overflow-x-auto pb-4 pr-2"
+            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(212,175,55,0.35) transparent" }}
+          >
+          {galleryPhotos.map((g, i) => (
             <figure
               key={i}
               data-d3="deep"
-              className="relative overflow-hidden"
+              className="relative shrink-0 overflow-hidden"
               style={{
                 borderRadius: 12,
                 border: "1px solid rgba(212,175,55,0.2)",
+                width: "min(78vw, 320px)",
+                aspectRatio: "3 / 4",
                 transitionDelay: `${i * 40}ms`,
               }}
             >
               <img
                 src={g}
-                alt=""
-                width={1024}
-                height={1280}
+                alt={t.seo.galleryAlts?.[i] || ""}
                 loading="lazy"
-                className="h-64 w-full object-cover md:h-80"
+                className="h-full w-full object-cover"
               />
               <div
                 className="pointer-events-none absolute inset-0"
@@ -531,6 +569,7 @@ function LandingPage() {
               />
             </figure>
           ))}
+          </div>
         </div>
       </section>
 
@@ -539,13 +578,13 @@ function LandingPage() {
       {/* FAQ preview */}
       <section className="mx-auto max-w-4xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="Questions"
-          title="Before You Begin"
-          quote="Ask freely — clarity is itself a first remedy."
+          eyebrow={t.faq.eyebrow}
+          title={t.faq.title}
+          quote={t.faq.quote}
         />
-        <FaqAccordion items={FAQS.slice(0, 3)} />
+        <FaqAccordion items={t.faq.items.slice(0, 3)} />
         <div className="mt-10 text-center">
-          <CtaButton href="/faq">Read All Questions</CtaButton>
+          <CtaButton href="/faq">{t.faq.readAll || "Read All Questions"}</CtaButton>
         </div>
       </section>
 
@@ -555,28 +594,27 @@ function LandingPage() {
       <section className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto max-w-4xl px-6 text-center md:px-10">
           <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-            Reserve a Sitting
+            {t.book.eyebrow}
           </div>
           <h2 className="mt-4 font-display text-4xl leading-tight text-ivory md:text-[44px]">
-            A private hour with the śāstra.
+            {t.book.title}
           </h2>
           <p
             className="mx-auto mt-6 max-w-2xl font-serif-italic text-xl"
             style={{ color: "#C9C3B0" }}
           >
-            Consultations by appointment, in person at Mylapore, Chennai, or by secure video call —
-            anywhere in the world.
+            {t.book.quote}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <CtaButton href="/contact">Book a Consultation</CtaButton>
+            <CtaButton href="/contact">{t.hero.bookBtn}</CtaButton>
             <CtaButton href="https://wa.me/919999999999" variant="maroon">
-              WhatsApp
+              {t.hero.whatsappBtn}
             </CtaButton>
           </div>
           <p className="mt-8 text-[13px]" style={{ color: "#C9C3B0" }}>
-            Mon–Sat · 07:00 – 19:00 IST · +91 99999 99999 ·{" "}
+            {t.book.hoursVal} · {t.book.contactVal} ·{" "}
             <Link to="/contact" className="underline" style={{ color: "#D4AF37" }}>
-              Full details &amp; appointment form
+              {t.book.fullDetails || "Full details & appointment form"}
             </Link>
           </p>
         </div>

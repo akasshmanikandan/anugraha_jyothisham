@@ -1,0 +1,321 @@
+{
+  "nav": {
+    "services": "Services",
+    "rituals": "Rituals",
+    "about": "About",
+    "process": "Process",
+    "voices": "Voices",
+    "faq": "FAQ",
+    "book": "Book ->",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Since 2009 | Rooted in Sastra",
+    "headline": [
+      "Guiding",
+      "Lives",
+      "Through",
+      "Ancient",
+      "Wisdom"
+    ],
+    "description": "A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy, carried forward from a lineage of temple astrologers.",
+    "bookBtn": "Book Consultation",
+    "whatsappBtn": "WhatsApp",
+    "yearsPractice": "Years of Practice",
+    "clientsGuided": "Clients Guided",
+    "sacredDisciplines": "Sacred Disciplines",
+    "chooseLang": "Choose Language"
+  },
+  "services": {
+    "eyebrow": "The Nine Disciplines",
+    "title": "Sacred Consultations",
+    "quote": "Each art a lamp; together, they illumine the whole of one life.",
+    "items": [
+      {
+        "title": "Jyotisha",
+        "sub": "Astrology",
+        "body": "Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras."
+      },
+      {
+        "title": "Tantrikam",
+        "sub": "Sacred Rituals",
+        "body": "Traditional yantra installation and homa ceremonies for protection, prosperity and clarity."
+      },
+      {
+        "title": "Mantrikam",
+        "sub": "Mantra Sadhana",
+        "body": "Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa."
+      },
+      {
+        "title": "Vaithiyam",
+        "sub": "Ayurvedic Guidance",
+        "body": "Prakriti-based counsel for restoring balance across dosha, diet and daily discipline."
+      },
+      {
+        "title": "Thambulam",
+        "sub": "Betel Leaf Divination",
+        "body": "Ancient south Indian oracle reading for time-sensitive questions and turning points."
+      },
+      {
+        "title": "Samudrika",
+        "sub": "Face Reading",
+        "body": "Reading the temperament and destiny inscribed in the features of the face."
+      },
+      {
+        "title": "Nadi",
+        "sub": "Palm-Leaf Reading",
+        "body": "Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth."
+      },
+      {
+        "title": "Vaasthu",
+        "sub": "Sacred Geometry",
+        "body": "Aligning homes, workplaces and temples with the directions, elements and mandala grid."
+      },
+      {
+        "title": "Numerology",
+        "sub": "Science of Numbers",
+        "body": "Names, dates and vibrational numbers harmonized for personal and family wellbeing."
+      }
+    ],
+    "viewAll": "View All Nine Disciplines",
+    "unsure": "Unsure which discipline answers your question? Begin with a brief conversation."
+  },
+  "about": {
+    "eyebrow": "The Astrologer",
+    "title": "Govindan Namboodiri VG",
+    "sub": "Vedic Astrologer",
+    "bullets": [
+      "Basic Horoscope, Predictions",
+      "Total Horoscope, Predictions",
+      "Birthday Annual Forecast",
+      "Marriage Matching",
+      "Muhurtha Date and Time",
+      "Numerology Predictions",
+      "Suitable & Lucky Name",
+      "Lucky Rasi Gems",
+      "Tantrika",
+      "Pradhista",
+      "Kumbabishekam"
+    ],
+    "parihara": "All kinds of parihara related religious rituals and Homam are performed.",
+    "bannerText": "WE PROVIDE ASTROLOGICAL SERVICES ANYWHERE IN THE WORLD",
+    "languagesText": "Tamil | English | Hindi | Malayalam",
+    "cta": "About the Practice"
+  },
+  "whyChooseUs": {
+    "eyebrow": "Why Anugraha",
+    "title": "Tradition, Held Whole",
+    "quote": "What is old must not be antique, it must be alive.",
+    "items": [
+      {
+        "t": "Unbroken Lineage",
+        "d": "Five generations of temple astrologers, taught in the classical guru-shishya tradition."
+      },
+      {
+        "t": "Shastric Fidelity",
+        "d": "Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone."
+      },
+      {
+        "t": "Discreet Practice",
+        "d": "Consultations by appointment only, held with the confidentiality of a physician."
+      },
+      {
+        "t": "Practical Remedies",
+        "d": "Prescriptions calibrated to your life, never asking what you cannot faithfully do."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "Consultation Path",
+    "title": "Five Steps, Held with Care",
+    "quote": "The right path is walked slowly, one lamp at a time.",
+    "steps": [
+      {
+        "n": "01",
+        "t": "Book",
+        "d": "Reserve a private slot at a time of your choosing."
+      },
+      {
+        "n": "02",
+        "t": "Birth Details",
+        "d": "Share date, time and place of birth in confidence."
+      },
+      {
+        "n": "03",
+        "t": "Consultation",
+        "d": "A one-on-one reading held in person or by call."
+      },
+      {
+        "n": "04",
+        "t": "Remedies",
+        "d": "Receive personalized mantras, yantras and rituals."
+      },
+      {
+        "n": "05",
+        "t": "Follow-up",
+        "d": "Periodic guidance as the dasha and planets shift."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Voices",
+    "title": "Words Left Behind",
+    "quote": "Gratitude is the only offering that outlasts the ritual.",
+    "items": [
+      {
+        "q": "The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
+        "n": "Lakshmi Narayanan",
+        "r": "Chennai"
+      },
+      {
+        "q": "A rare astrologer who does not sensationalize. Every reading carried the weight of tradition and calm authority.",
+        "n": "Ananya Iyer",
+        "r": "Bengaluru"
+      },
+      {
+        "q": "Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
+        "n": "Rajesh Menon",
+        "r": "Kochi"
+      },
+      {
+        "q": "Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
+        "n": "Priya Subramanian",
+        "r": "Coimbatore"
+      },
+      {
+        "q": "The Nadi reading was uncanny. Nothing embellished, nothing withheld, an honest window into karma.",
+        "n": "Vikram Bhatt",
+        "r": "Mumbai"
+      },
+      {
+        "q": "After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
+        "n": "Meera Krishnan",
+        "r": "Trivandrum"
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Pooja Photos",
+    "title": "Temple Rituals",
+    "quote": "Moments from the living practice.",
+    "scrollArchive": "Scroll through the ritual archive",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "title": "Before You Begin",
+    "quote": "Ask freely, clarity is itself a first remedy.",
+    "items": [
+      {
+        "q": "How much does a Nadi astrology consultation cost in Chennai?",
+        "a": "The fee depends on whether you need a standard consultation, a dedicated Nadi session, or follow-up guidance alongside the reading. Share your concern and birth details, and the appropriate format and fee will be confirmed before booking."
+      },
+      {
+        "q": "Is Nadi astrology accurate?",
+        "a": "Nadi reading is approached with reverence and care. Its value lies in whether the reading resonates clearly with your life, timing, and questions, and it is best received as guidance rather than spectacle."
+      },
+      {
+        "q": "What does a Vedic astrologer in Chennai do?",
+        "a": "A Vedic astrologer studies the birth chart, planetary periods, transits, and relevant remedies to clarify patterns around marriage, career, family, health, and spiritual practice."
+      },
+      {
+        "q": "How do I book an astrologer consultation in Perambur?",
+        "a": "You can request an appointment through the form on this page or by WhatsApp. Once your name, contact number, and consultation details are received, a suitable time will be confirmed."
+      },
+      {
+        "q": "What details do I need to share before a horoscope consultation?",
+        "a": "Please share your date of birth, exact time of birth as closely as possible, and place of birth. If the birth time is uncertain, a rectification session can be arranged first."
+      },
+      {
+        "q": "Are remedies and parihara rituals difficult to follow?",
+        "a": "Remedies are prescribed with practicality in mind. Some may be as simple as daily mantra japa, while others may involve temple worship on specific days."
+      },
+      {
+        "q": "Is my consultation confidential?",
+        "a": "Yes. Personal details, charts, questions, and remedies are treated with discretion and remain private between you and the astrologer."
+      },
+      {
+        "q": "Do you offer follow-up consultations after the first reading?",
+        "a": "Yes. Many people return during major dasha changes, before marriage discussions, house decisions, or other important life transitions."
+      }
+    ],
+    "readAll": "Read All Questions",
+    "notAnswered": "A question not answered here? Write to us directly."
+  },
+  "book": {
+    "eyebrow": "Reserve a Sitting",
+    "title": "A private hour with the Sastra.",
+    "quote": "Consultations by appointment. In person at our study in Chennai, or by secure video call.",
+    "hoursLabel": "Hours",
+    "hoursVal": "Sun-Fri | 08:00 - 17:00 IST",
+    "addressLabel": "Address",
+    "addressVal": "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
+    "contactLabel": "Contact",
+    "contactVal": "+91 917 609 6471 | +91 877 823 6182 | WhatsApp available",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Your name",
+      "phone": "Phone",
+      "phonePlaceholder": "+91 ...",
+      "dob": "Date of Birth",
+      "tob": "Time of Birth",
+      "pob": "Place of Birth",
+      "pobPlaceholder": "Town, State",
+      "nature": "Nature of Consultation",
+      "natureOptions": [
+        "Jyotisha - Birth chart reading",
+        "Nadi - Palm-leaf consultation",
+        "Vaasthu - Home / workplace",
+        "Marriage compatibility",
+        "Other"
+      ],
+      "question": "Your Question",
+      "questionPlaceholder": "Briefly describe the concern you wish to bring...",
+      "submit": "Request Appointment",
+      "replyNote": "We reply within one working day."
+    },
+    "fullDetails": "Full details & appointment form"
+  },
+  "seo": {
+    "businessName": "Anugraha Jyothishalaya",
+    "streetAddress": "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur",
+    "addressLocality": "Chennai",
+    "addressRegion": "Tamil Nadu",
+    "postalCode": "600011",
+    "addressCountry": "IN",
+    "areaServed": [
+      "Chennai",
+      "Perambur"
+    ],
+    "title": "Anugraha Jyothishalaya - Vedic Astrologer in Chennai | Govindan Namboodiri VG",
+    "description": "Anugraha Jyothishalaya in Chennai and Perambur with Govindan Namboodiri VG, offering Vedic astrology, Nadi reading, marriage matching, numerology, Vaasthu, and sacred ritual guidance.",
+    "geoLatitude": "13.1218",
+    "geoLongitude": "80.2123",
+    "priceRange": "₹₹",
+    "altBhadrakali": "Bhadrakali pooja image with Sri Chakra in Perambur, Chennai",
+    "altSriChakra": "Sri Chakra plaque with Bhadrakali pooja backdrop in Chennai",
+    "altTemplePhoto": "Vishnumaya shrine image used for astrologer description in Perambur, Chennai",
+    "altGalleryArchive": "Ritual archive photo from temple worship in Chennai",
+    "altDeityPrefix": "Temple deity portrait from Anugraha Jyothishalaya in Chennai:",
+    "galleryAlts": [
+      "Temple deity adorned with flowers in Chennai",
+      "Night ritual fire ceremony in Chennai",
+      "Temple altar with lamps and floral arrangement in Chennai",
+      "Floor ritual with lamps and offerings in Chennai",
+      "Temple ritual with central fire and devotees in Chennai",
+      "Decorated shrine with multiple deity frames in Chennai",
+      "Pooja arrangement with lamps and flowers in Chennai",
+      "Sacred fire burning in a ritual pit in Chennai"
+    ]
+  },
+  "footer": {
+    "description": "A private consultancy in traditional Vedic astrology and spiritual practice.",
+    "headers": {
+      "consultation": "Consultation",
+      "contact": "Contact"
+    },
+    "copyright": "© 2026 Anugraha Jyothishalaya. All rights reserved.",
+    "shanti": "Om shanti shanti shanti"
+  }
+}

@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import bhadrakaliPhoto from "@/assets/god-photo-3.jpeg";
+import vinayagarPhoto from "@/assets/deity-vinayagar.jpg";
+import vishnumayaPhoto from "@/assets/photo.png";
+import { useLanguage, type Language } from "@/contexts/LanguageContext";
 
 /* ================= Data ================= */
 
@@ -292,7 +296,9 @@ export function FxToggle({ fx3d, toggle }: { fx3d: boolean; toggle: () => void }
 }
 
 export function SiteHeader() {
+  const { lang, setLang, t } = useLanguage();
   const linkCls = "hover:text-ivory transition-colors";
+  const languages: Language[] = ["en", "ta", "ml", "hi"];
   return (
     <header className="fixed top-0 left-0 right-0 z-40">
       <div
@@ -312,25 +318,41 @@ export function SiteHeader() {
             style={{ color: "#C9C3B0" }}
           >
             <Link to="/services" className={linkCls} activeProps={{ style: { color: "#D4AF37" } }}>
-              Services
+              {t.nav.services}
             </Link>
             <Link to="/about" className={linkCls} activeProps={{ style: { color: "#D4AF37" } }}>
-              About
+              {t.nav.about}
             </Link>
             <Link to="/faq" className={linkCls} activeProps={{ style: { color: "#D4AF37" } }}>
-              FAQ
+              {t.nav.faq}
             </Link>
             <Link to="/contact" className={linkCls} activeProps={{ style: { color: "#D4AF37" } }}>
-              Contact
+              {t.nav.contact || "Contact"}
             </Link>
           </nav>
-          <Link
-            to="/contact"
-            className="hidden text-[12px] uppercase tracking-[0.22em] md:inline-block"
-            style={{ color: "#D4AF37" }}
-          >
-            Book →
-          </Link>
+          <div className="hidden items-center gap-4 md:flex">
+            <div className="flex items-center gap-1" aria-label={t.hero.chooseLang}>
+              {languages.map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setLang(code)}
+                  className="px-2 py-1 text-[10px] uppercase tracking-[0.16em] transition-colors"
+                  style={{ color: lang === code ? "#D4AF37" : "#C9C3B0" }}
+                  aria-pressed={lang === code}
+                >
+                  {code.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            <Link
+              to="/contact"
+              className="text-[12px] uppercase tracking-[0.22em]"
+              style={{ color: "#D4AF37" }}
+            >
+              {t.nav.book}
+            </Link>
+          </div>
         </div>
       </div>
     </header>
@@ -338,6 +360,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
+  const { t } = useLanguage();
   return (
     <footer className="relative overflow-hidden pt-16" style={{ background: "#050F22" }}>
       <div className="mx-auto max-w-7xl px-6 md:px-10">
@@ -347,33 +370,32 @@ export function SiteFooter() {
               ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
             </div>
             <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
-              A private consultancy in traditional Vedic astrology and spiritual practice.
+              {t.footer.description}
             </p>
           </div>
           <div>
             <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-              Consultation
+              {t.footer.headers.consultation}
             </div>
             <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
               <li>
-                <Link to="/services">Nine Disciplines</Link>
+                <Link to="/services">{t.services.eyebrow}</Link>
               </li>
               <li>
-                <Link to="/about">The Astrologer</Link>
+                <Link to="/about">{t.about.eyebrow}</Link>
               </li>
               <li>
-                <Link to="/contact">Book a Sitting</Link>
+                <Link to="/contact">{t.book.eyebrow}</Link>
               </li>
             </ul>
           </div>
           <div>
             <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-              Contact
+              {t.footer.headers.contact}
             </div>
             <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-              <li>+91 99999 99999</li>
-              <li>office@anugrahajyotisham.in</li>
-              <li>Mylapore, Chennai</li>
+              <li>{t.book.contactVal}</li>
+              <li>{t.book.addressVal}</li>
             </ul>
           </div>
         </div>
@@ -386,12 +408,12 @@ export function SiteFooter() {
           className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
           style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
         >
-          <span>© 2026 Anugraha Jathakalaya. All rights reserved.</span>
+          <span>{t.footer.copyright}</span>
           <span
             className="font-serif-italic normal-case tracking-normal text-[13px]"
             style={{ color: "#D4AF37" }}
           >
-            Ōm śānti śānti śānti
+            {t.footer.shanti}
           </span>
         </div>
       </div>
@@ -654,54 +676,40 @@ export function FaqAccordion({ items = FAQS }: { items?: typeof FAQS }) {
 }
 
 export function TempleSilhouette() {
-  // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
+  const { lang } = useLanguage();
+  const names: Record<Language, string[]> = {
+    en: ["Bhadrakali", "Vinayagar", "Vishnumaya"],
+    ta: ["பத்ரகாளி", "விநாயகர்", "விஷ்ணுமாயா"],
+    ml: ["ഭദ്രകാളി", "ഗണപതി", "വിഷ്ണുമായ"],
+    hi: ["भद्रकाली", "विनायक", "विष्णुमाया"],
+  };
+  const deities = [
+    { src: bhadrakaliPhoto, name: names[lang][0] },
+    { src: vinayagarPhoto, name: names[lang][1] },
+    { src: vishnumayaPhoto, name: names[lang][2] },
+  ];
   return (
-    <svg viewBox="0 -20 1200 220" className="w-full" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0A2140" />
-          <stop offset="100%" stopColor="#050F22" />
-        </linearGradient>
-      </defs>
-      {/* left small shikhara */}
-      <path
-        d="M 0 200 L 0 140 L 60 140 L 60 120 L 80 100 L 100 80 L 120 100 L 140 120 L 140 140 L 200 140 L 200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* main gopuram */}
-      <path
-        d="M 240 200 L 240 130 L 300 130 L 300 110 L 320 90 L 340 70 L 360 50 L 380 30 L 400 15 L 420 30 L 440 50 L 460 70 L 480 90 L 500 110 L 500 130 L 560 130 L 560 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.65"
-      />
-      {/* kalasha */}
-      <circle cx="400" cy="10" r="4" fill="#D4AF37" opacity="0.85" />
-      <line x1="400" y1="4" x2="400" y2="15" stroke="#D4AF37" strokeWidth="0.7" opacity="0.7" />
-      {/* right big gopuram (mirrored, taller) */}
-      <path
-        d="M 600 200 L 600 150 L 660 150 L 660 130 L 680 110 L 700 90 L 720 70 L 740 45 L 760 20 L 780 0 L 800 20 L 820 45 L 840 70 L 860 90 L 880 110 L 900 130 L 900 150 L 960 150 L 960 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.7"
-      />
-      <circle cx="780" cy="-4" r="4" fill="#D4AF37" opacity="0.9" />
-      <line x1="780" y1="-10" x2="780" y2="4" stroke="#D4AF37" strokeWidth="0.7" opacity="0.75" />
-      {/* right small shikhara */}
-      <path
-        d="M 1000 200 L 1000 140 L 1060 140 L 1060 120 L 1080 100 L 1100 80 L 1120 100 L 1140 120 L 1140 140 L 1200 140 L 1200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* horizon hairline */}
-      <line x1="0" y1="199" x2="1200" y2="199" stroke="#D4AF37" strokeOpacity="0.25" strokeWidth="0.6" />
-    </svg>
+    <div className="grid grid-cols-3 items-end gap-3 md:gap-8" aria-label="Temple deities">
+      {deities.map((deity) => (
+        <figure key={deity.name} className="text-center">
+          <div
+            className="mx-auto aspect-[3/4] max-h-52 overflow-hidden border"
+            style={{
+              borderColor: "rgba(212,175,55,0.35)",
+              clipPath: "polygon(50% 0%, 86% 16%, 100% 44%, 100% 100%, 0 100%, 0 44%, 14% 16%)",
+              background: "#081A34",
+            }}
+          >
+            <img src={deity.src} alt={deity.name} className="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <figcaption
+            className="mt-3 font-display text-[11px] uppercase tracking-[0.18em] md:text-[13px]"
+            style={{ color: "#D4AF37" }}
+          >
+            {deity.name}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
   );
 }

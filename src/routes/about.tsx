@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, SectionDivider, SectionHeading } from "@/components/site/shared";
 import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const { t } = useLanguage();
   return (
     <PageFrame>
       {/* Astrologer */}
@@ -68,25 +70,18 @@ function AboutPage() {
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              The Astrologer
+              {t.about.eyebrow}
             </div>
             <h1 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              Sri. V. Govindan Namboodiri
+              {t.about.title}
             </h1>
             <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-              Vedic Astrologer
+              {t.about.sub}
             </p>
             <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
               {[
-                "Basic Horoscope, Predictions",
-                "Total Horoscope, Predictions",
-                "Birthday Annual Forecast",
-                "Marriage Matching",
-                "Muhurtha Date and Time",
-                "Numerology Predictions",
-                "Suitable & Lucky Name",
-                "Lucky Rasi Gems",
-              ].map((item) => (
+                ...t.about.bullets,
+              ].map((item: string) => (
                 <div
                   key={item}
                   className="flex items-start gap-3 text-[15px]"
@@ -98,17 +93,17 @@ function AboutPage() {
               ))}
             </div>
             <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              All kinds of parihara related religious rituals and Homam are performed.
+              {t.about.parihara}
             </p>
             <div className="mt-8 border-l pl-5" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
               <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
-                WE PROVIDE ASTROLOGICAL SERVICES “ANYWHERE IN THE WORLD”
+                {t.about.bannerText}
               </p>
               <p
                 className="mt-2 text-[13px] uppercase tracking-[0.24em]"
                 style={{ color: "#D4AF37" }}
               >
-                Tamil · English · Hindi · Malayalam
+                {t.about.languagesText}
               </p>
             </div>
           </div>
@@ -120,29 +115,14 @@ function AboutPage() {
       {/* Why Choose Us */}
       <section className="mx-auto max-w-7xl px-6 pb-10 md:px-10">
         <SectionHeading
-          eyebrow="Why Anugraha"
-          title="Tradition, Held Whole"
-          quote="What is old must not be antique — it must be alive."
+          eyebrow={t.whyChooseUs.eyebrow}
+          title={t.whyChooseUs.title}
+          quote={t.whyChooseUs.quote}
         />
         <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {[
-            {
-              t: "Unbroken Lineage",
-              d: "Five generations of temple astrologers, taught in the classical guru-śiṣya tradition.",
-            },
-            {
-              t: "Śāstric Fidelity",
-              d: "Every reading grounded in Parāśara, Jaimini and Nadi literature — never intuition alone.",
-            },
-            {
-              t: "Discreet Practice",
-              d: "Consultations by appointment only, held with the confidentiality of a physician.",
-            },
-            {
-              t: "Practical Remedies",
-              d: "Prescriptions calibrated to your life — never asking what you cannot faithfully do.",
-            },
-          ].map((x, i) => (
+            ...t.whyChooseUs.items,
+          ].map((x: { t: string; d: string }, i: number) => (
             <div key={i} className="glass-card p-8">
               <div
                 className="mb-5 font-display text-[13px] tracking-[0.3em]"
