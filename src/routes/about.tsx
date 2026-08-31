@@ -18,7 +18,17 @@ export const Route = createFileRoute("/about")({
           "Meet Sri. V. Govindan Namboodiri, Vedic Astrologer, and the lineage behind Anugraha Jathakalaya.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/about",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/about",
+      },
     ],
   }),
   component: AboutPage,

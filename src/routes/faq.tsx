@@ -22,7 +22,17 @@ export const Route = createFileRoute("/faq")({
         content: "Everything to know before booking a traditional Vedic consultation.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/faq",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/faq",
+      },
     ],
   }),
   component: FaqPage,
