@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, SectionDivider, SectionHeading } from "@/components/site/shared";
-import sreeChakra from "@/assets/sree-chakra.png.asset.json";
-import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
+import sreeChakra from "@/assets/sree-chakra.png";
+import godPhoto4 from "@/assets/god-photo-4.jpeg";
+import astrologerBackdrop from "@/assets/photo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Route = createFileRoute("/about")({
@@ -46,10 +47,15 @@ function AboutPage() {
           <div data-d3="deep" className="relative">
             <div
               className="relative overflow-hidden shadow-2xl"
-              style={{ borderRadius: 16, background: "#050F22" }}
+              style={{
+                borderRadius: 16,
+                backgroundImage: `linear-gradient(180deg, rgba(5,15,34,0.08), rgba(5,15,34,0.18)), url(${godPhoto4})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
             >
               <img
-                src={sreeChakra.url}
+                src={sreeChakra}
                 alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
                 width={512}
                 height={512}
@@ -72,7 +78,7 @@ function AboutPage() {
           <div
             className="relative overflow-hidden px-8 py-10 md:px-14 md:py-12"
             style={{
-              backgroundImage: `linear-gradient(90deg, rgba(109,31,45,0.74), rgba(5,15,34,0.58)), url(${deityBhadrakali})`,
+              backgroundImage: `linear-gradient(90deg, rgba(109,31,45,0.74), rgba(5,15,34,0.58)), url(${astrologerBackdrop})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}
