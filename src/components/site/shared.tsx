@@ -433,19 +433,27 @@ export function CtaButton({
 }) {
   const cls =
     variant === "maroon" ? "bg-maroon text-ivory hover:bg-maroon-deep" : "bg-transparent text-ivory";
-  const Cmp: any = href ? "a" : "button";
-  return (
-    <Cmp
-      href={href}
-      onClick={onClick}
-      type={type}
-      className={`cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 ${cls}`}
-      style={{ borderColor: "rgba(212,175,55,0.4)" }}
-    >
+  const className = `cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 ${cls}`;
+  const style = { borderColor: "rgba(212,175,55,0.4)" };
+  const inner = (
+    <>
       <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
         <rect x="0.5" y="0.5" width="199" height="59" />
       </svg>
       <span className="relative z-10">{children}</span>
+    </>
+  );
+  if (href?.startsWith("/")) {
+    return (
+      <Link to={href} className={className} style={style}>
+        {inner}
+      </Link>
+    );
+  }
+  const Cmp: any = href ? "a" : "button";
+  return (
+    <Cmp href={href} onClick={onClick} type={type} className={className} style={style}>
+      {inner}
     </Cmp>
   );
 }
@@ -592,11 +600,11 @@ export function ServiceCard({ s }: { s: (typeof SERVICES)[number] }) {
   );
 }
 
-export function FaqAccordion() {
+export function FaqAccordion({ items = FAQS }: { items?: typeof FAQS }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   return (
     <div className="mt-14 divide-y" style={{ borderColor: "rgba(212,175,55,0.2)" }}>
-      {FAQS.map((f, i) => {
+      {items.map((f, i) => {
         const open = openFaq === i;
         return (
           <div
