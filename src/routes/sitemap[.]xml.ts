@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app";
+const BASE_URL = "https://anugrahajyothishalaya.com";
 
 interface SitemapEntry {
   path: string;

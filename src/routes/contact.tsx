@@ -5,28 +5,28 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Book a Consultation — Anugraha Jyothishalaya" },
+      { title: "Book an Astrologer in Perambur, Chennai | Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
-          "Reserve a private sitting with Sri. V. Govindan Namboodiri. In person at Mylapore, Chennai, or by secure video call — anywhere in the world.",
+          "Book a private astrology consultation with Anugraha Jyothishalaya in Perambur, Chennai for horoscope reading, Nadi astrology, marriage matching, Vaasthu, and remedies.",
       },
-      { property: "og:title", content: "Book a Consultation — Anugraha Jyothishalaya" },
+      { property: "og:title", content: "Book an Astrologer in Perambur, Chennai" },
       {
         property: "og:description",
-        content: "Reserve a private consultation, in person in Chennai or by video call worldwide.",
+        content: "Request an appointment with Govindan Namboodiri VG at Anugraha Jyothishalaya in Perambur, Chennai.",
       },
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/contact",
+        content: "https://anugrahajyothishalaya.com/contact",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/contact",
+        href: "https://anugrahajyothishalaya.com/contact",
       },
     ],
   }),

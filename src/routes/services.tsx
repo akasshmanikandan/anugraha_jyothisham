@@ -12,29 +12,29 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Anugraha Jyothishalaya" },
+      { title: "Astrology Services in Chennai | Jyotisha, Nadi, Vaasthu & More - Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
-          "Nine sacred disciplines: Jyotisha, Tantrikam, Mantrikam, Vaithiyam, Thambulam, Face Reading, Nadi, Vaasthu and Numerology — by Sri. V. Govindan Namboodiri.",
+          "Explore nine traditional astrology services in Chennai with Govindan Namboodiri VG: Jyotisha, Tantrikam, Mantrikam, Vaithiyam, Thambulam, Samudrika, Nadi, Vaasthu, and Numerology.",
       },
-      { property: "og:title", content: "Services — Anugraha Jyothishalaya" },
+      { property: "og:title", content: "Astrology Services in Chennai | Anugraha Jyothishalaya" },
       {
         property: "og:description",
-        content: "Nine sacred disciplines of Vedic consultation, rooted in tradition.",
+        content: "Nine sacred disciplines of Vedic consultation from an astrologer in Chennai, rooted in traditional Sastric practice.",
       },
       { property: "og:type", content: "website" },
       {
         property: "og:url",
         content:
-          "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/services",
+          "https://anugrahajyothishalaya.com/services",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/services",
+        href: "https://anugrahajyothishalaya.com/services",
       },
     ],
   }),

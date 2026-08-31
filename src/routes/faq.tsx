@@ -11,28 +11,28 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — Anugraha Jyothishalaya" },
+      { title: "Astrologer in Chennai - Frequently Asked Questions | Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
-          "Questions before you begin — what to share before booking, how remedies are prescribed, confidentiality and follow-up consultations.",
+          "Answers to common consultation questions for Chennai and Perambur clients, including Nadi astrology, horoscope readings, marriage matching, remedies, and follow-up guidance.",
       },
-      { property: "og:title", content: "FAQ — Anugraha Jyothishalaya" },
+      { property: "og:title", content: "Astrologer in Chennai FAQ | Anugraha Jyothishalaya" },
       {
         property: "og:description",
-        content: "Everything to know before booking a traditional Vedic consultation.",
+        content: "Consultation guidance for clients seeking a Vedic astrologer in Chennai or Perambur.",
       },
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/faq",
+        content: "https://anugrahajyothishalaya.com/faq",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/faq",
+        href: "https://anugrahajyothishalaya.com/faq",
       },
     ],
   }),

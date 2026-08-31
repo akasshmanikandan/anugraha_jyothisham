@@ -35,29 +35,29 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyothishalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
+      { title: "Best Astrologer in Chennai | Anugraha Jyothishalaya - Govindan Namboodiri VG" },
       {
         name: "description",
         content:
-          "Anugraha Jyothishalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
+          "Anugraha Jyothishalaya, a trusted astrologer in Chennai and Perambur led by Govindan Namboodiri VG, offering Vedic astrology, Nadi reading, marriage matching, numerology, Vaasthu, and sacred ritual guidance.",
       },
-      { property: "og:title", content: "Anugraha Jyothishalaya — Vedic Astrology" },
+      { property: "og:title", content: "Best Astrologer in Chennai | Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content:
-          "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
+          "Traditional Vedic astrology, Nadi reading, marriage matching, numerology, Vaasthu, and sacred ritual guidance in Chennai and Perambur.",
       },
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/",
+        content: "https://anugrahajyothishalaya.com/",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/",
+        href: "https://anugrahajyothishalaya.com/",
       },
     ],
   }),

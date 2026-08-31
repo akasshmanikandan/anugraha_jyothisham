@@ -502,26 +502,30 @@ export function Counter({ end, suffix = "" }: { end: number; suffix?: string }) 
   const doneRef = useRef(false);
   useEffect(() => {
     if (!ref.current) return;
+    const startCounter = () => {
+      if (doneRef.current) return;
+      doneRef.current = true;
+      const dur = 1600;
+      const start = performance.now();
+      const step = (t: number) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setValue(Math.round(end * eased));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting && !doneRef.current) {
-            doneRef.current = true;
-            const dur = 1600;
-            const start = performance.now();
-            const step = (t: number) => {
-              const p = Math.min(1, (t - start) / dur);
-              const eased = 1 - Math.pow(1 - p, 3);
-              setValue(Math.round(end * eased));
-              if (p < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-          }
+          if (e.isIntersecting) startCounter();
         });
       },
       { threshold: 0.4 }
     );
     obs.observe(ref.current);
+    const rect = ref.current.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) startCounter();
     return () => obs.disconnect();
   }, [end]);
   return (

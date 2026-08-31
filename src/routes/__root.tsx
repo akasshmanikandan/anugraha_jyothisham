@@ -13,6 +13,55 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  name: "Anugraha Jyothishalaya",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur",
+    addressLocality: "Chennai",
+    addressRegion: "Tamil Nadu",
+    postalCode: "600011",
+    addressCountry: "IN",
+  },
+  telephone: ["+91 917 609 6471", "+91 877 823 6182"],
+  email: "anugrahajyothisham@gmail.com",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "17:00",
+    },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Astrology and spiritual consultation services",
+    itemListElement: [
+      "Jyotisha",
+      "Tantrikam",
+      "Mantrikam",
+      "Vaithiyam",
+      "Thambulam",
+      "Samudrika",
+      "Nadi",
+      "Vaasthu",
+      "Numerology",
+    ].map((name) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name },
+    })),
+  },
+  areaServed: ["Chennai", "Perambur"],
+  priceRange: "₹₹",
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 13.1218,
+    longitude: 80.2123,
+  },
+};
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -104,6 +153,10 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
       </head>
       <body>
         {children}

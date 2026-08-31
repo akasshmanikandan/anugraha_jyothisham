@@ -8,29 +8,29 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Sri. V. Govindan Namboodiri — Anugraha Jyothishalaya" },
+      { title: "About Govindan Namboodiri VG | Astrologer in Perambur, Chennai" },
       {
         name: "description",
         content:
-          "Sri. V. Govindan Namboodiri, Vedic Astrologer — horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world, in Tamil, English, Hindi and Malayalam.",
+          "Learn about Govindan Namboodiri VG, an astrologer in Perambur, Chennai, carrying a five-generation lineage of Vedic astrology and traditional Sastric remedies.",
       },
-      { property: "og:title", content: "About — Anugraha Jyothishalaya" },
+      { property: "og:title", content: "About Govindan Namboodiri VG | Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content:
-          "Meet Sri. V. Govindan Namboodiri, Vedic Astrologer, and the lineage behind Anugraha Jyothishalaya.",
+          "Meet the Perambur, Chennai astrologer behind Anugraha Jyothishalaya and the lineage guiding the practice.",
       },
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/about",
+        content: "https://anugrahajyothishalaya.com/about",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://id-preview--e95ab885-1ec5-48f1-a545-fe163a27f99d.lovable.app/about",
+        href: "https://anugrahajyothishalaya.com/about",
       },
     ],
   }),
