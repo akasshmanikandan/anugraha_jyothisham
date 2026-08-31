@@ -5,13 +5,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Book a Consultation — Anugraha Jathakalaya" },
+      { title: "Book a Consultation — Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
           "Reserve a private sitting with Sri. V. Govindan Namboodiri. In person at Mylapore, Chennai, or by secure video call — anywhere in the world.",
       },
-      { property: "og:title", content: "Book a Consultation — Anugraha Jathakalaya" },
+      { property: "og:title", content: "Book a Consultation — Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content: "Reserve a private consultation, in person in Chennai or by video call worldwide.",

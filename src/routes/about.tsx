@@ -8,17 +8,17 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Sri. V. Govindan Namboodiri — Anugraha Jathakalaya" },
+      { title: "About Sri. V. Govindan Namboodiri — Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
           "Sri. V. Govindan Namboodiri, Vedic Astrologer — horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world, in Tamil, English, Hindi and Malayalam.",
       },
-      { property: "og:title", content: "About — Anugraha Jathakalaya" },
+      { property: "og:title", content: "About — Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content:
-          "Meet Sri. V. Govindan Namboodiri, Vedic Astrologer, and the lineage behind Anugraha Jathakalaya.",
+          "Meet Sri. V. Govindan Namboodiri, Vedic Astrologer, and the lineage behind Anugraha Jyothishalaya.",
       },
       { property: "og:type", content: "website" },
       {

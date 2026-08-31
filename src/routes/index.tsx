@@ -20,7 +20,6 @@ import {
   CtaButton,
   FAQS,
   FaqAccordion,
-  FxToggle,
   PROCESS,
   SERVICES,
   SectionDivider,
@@ -30,20 +29,19 @@ import {
   SiteHeader,
   StatBlock,
   TESTIMONIALS,
-  useFx3d,
   useScrollDepth,
 } from "@/components/site/shared";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jathakalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
+      { title: "Anugraha Jyothishalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
       {
         name: "description",
         content:
-          "Anugraha Jathakalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
+          "Anugraha Jyothishalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
-      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrology" },
+      { property: "og:title", content: "Anugraha Jyothishalaya — Vedic Astrology" },
       {
         property: "og:description",
         content:
@@ -167,7 +165,7 @@ function LandingPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const galleryStripRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
-  const [fx3d, toggleFx] = useFx3d();
+  const fx3d = true;
   const { lang, setLang, t } = useLanguage();
   useScrollDepth();
 
@@ -273,7 +271,6 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
-      <FxToggle fx3d={fx3d} toggle={toggleFx} />
       <SiteHeader />
 
       {/* Hero */}

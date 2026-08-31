@@ -12,13 +12,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Anugraha Jathakalaya" },
+      { title: "Services — Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
           "Nine sacred disciplines: Jyotisha, Tantrikam, Mantrikam, Vaithiyam, Thambulam, Face Reading, Nadi, Vaasthu and Numerology — by Sri. V. Govindan Namboodiri.",
       },
-      { property: "og:title", content: "Services — Anugraha Jathakalaya" },
+      { property: "og:title", content: "Services — Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content: "Nine sacred disciplines of Vedic consultation, rooted in tradition.",

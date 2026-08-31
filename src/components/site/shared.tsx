@@ -273,28 +273,6 @@ export function useScrollDepth() {
 
 /* ================= Chrome ================= */
 
-export function FxToggle({ fx3d, toggle }: { fx3d: boolean; toggle: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-pressed={fx3d}
-      className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 border px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] backdrop-blur transition-colors"
-      style={{
-        borderColor: "rgba(212,175,55,0.4)",
-        background: "rgba(5,15,34,0.72)",
-        color: fx3d ? "#D4AF37" : "#C9C3B0",
-      }}
-    >
-      <span
-        className="inline-block h-1.5 w-1.5 rounded-full transition-colors"
-        style={{ background: fx3d ? "#D4AF37" : "rgba(201,195,176,0.4)" }}
-      />
-      3D {fx3d ? "On" : "Off"}
-    </button>
-  );
-}
-
 export function SiteHeader() {
   const { lang, setLang, t } = useLanguage();
   const linkCls = "hover:text-ivory transition-colors";
@@ -311,7 +289,7 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
           <Link to="/" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-            ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
+            ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTHISHALAYA
           </Link>
           <nav
             className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex"
@@ -367,7 +345,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
+              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTHISHALAYA
             </div>
             <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
               {t.footer.description}
@@ -405,16 +383,27 @@ export function SiteFooter() {
           <TempleSilhouette />
         </div>
         <div
-          className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
+          className="flex flex-wrap items-center justify-between gap-3 border-t py-6 text-[11px] uppercase tracking-[0.22em]"
           style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
         >
           <span>{t.footer.copyright}</span>
-          <span
-            className="font-serif-italic normal-case tracking-normal text-[13px]"
-            style={{ color: "#D4AF37" }}
-          >
-            {t.footer.shanti}
-          </span>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="https://www.troyflex.dev/"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-ivory"
+              style={{ color: "#D4AF37" }}
+            >
+              Developed by Troyflex
+            </a>
+            <span
+              className="font-serif-italic normal-case tracking-normal text-[13px]"
+              style={{ color: "#D4AF37" }}
+            >
+              {t.footer.shanti}
+            </span>
+          </div>
         </div>
       </div>
     </footer>
@@ -423,14 +412,13 @@ export function SiteFooter() {
 
 /** Page shell: background, scroll-depth fx, toggle, header, footer. */
 export function PageFrame({ children }: { children: ReactNode }) {
-  const [fx3d, toggleFx] = useFx3d();
+  useFx3d();
   useScrollDepth();
   return (
     <div
       className="min-h-screen text-ivory"
       style={{ background: "#081A34", color: "#F7F4EA" }}
     >
-      <FxToggle fx3d={fx3d} toggle={toggleFx} />
       <SiteHeader />
       {children}
       <SiteFooter />

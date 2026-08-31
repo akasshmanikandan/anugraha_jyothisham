@@ -11,13 +11,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — Anugraha Jathakalaya" },
+      { title: "FAQ — Anugraha Jyothishalaya" },
       {
         name: "description",
         content:
           "Questions before you begin — what to share before booking, how remedies are prescribed, confidentiality and follow-up consultations.",
       },
-      { property: "og:title", content: "FAQ — Anugraha Jathakalaya" },
+      { property: "og:title", content: "FAQ — Anugraha Jyothishalaya" },
       {
         property: "og:description",
         content: "Everything to know before booking a traditional Vedic consultation.",
